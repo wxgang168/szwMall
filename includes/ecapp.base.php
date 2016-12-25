@@ -543,6 +543,7 @@ EOT;
             return;
         }
         $this->assign('site_url', SITE_URL);
+        $this->assign('real_site_url', defined('IN_BACKEND') ? dirname(site_url()) : site_url());
         $this->assign('ecmall_version', VERSION);
         $this->assign('random_number', rand());
 

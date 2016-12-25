@@ -1,0 +1,7 @@
+/.settings
+.DS_Store
+/.buildpath
+/.project
+/app
+build
+temp
