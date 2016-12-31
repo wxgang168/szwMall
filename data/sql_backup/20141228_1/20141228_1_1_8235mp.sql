@@ -1446,14 +1446,14 @@ CREATE TABLE ecm_groupbuy_log (
   PRIMARY KEY (group_id,user_id)
 ) TYPE=MyISAM;
 DROP TABLE IF EXISTS ecm_kmenus;
-CREATE TABLE ecm_kmenus (
+CREATE TABLE ecmx_kmenus (
   kmenus_id int(10) unsigned NOT NULL,
   stypeinfo tinyint(3) unsigned NOT NULL DEFAULT '1',
   `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
   stype tinyint(3) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (kmenus_id)
 ) TYPE=MyISAM;
-INSERT INTO ecm_kmenus ( `kmenus_id`, `stypeinfo`, `status`, `stype` ) VALUES  ('2','3','0','1');
+INSERT INTO ecmx_kmenus ( `kmenus_id`, `stypeinfo`, `status`, `stype` ) VALUES  ('2','3','0','1');
 DROP TABLE IF EXISTS ecm_kmenusinfo;
 CREATE TABLE ecm_kmenusinfo (
   kmenusinfo_id int(10) unsigned NOT NULL AUTO_INCREMENT,
