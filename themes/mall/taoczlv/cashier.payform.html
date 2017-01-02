@@ -1,4 +1,4 @@
-<!--{if $payform.payment_code  eq  'wxpayv3' }-->
+<!--{if $payment.payment_code  eq  'wxpayv3' }-->
   {include file="header.html"}
 <style type="text/css">
 .mall-nav{ display:none}
@@ -21,18 +21,6 @@
 {include file="footer.html"}
 
 
-<!--{else} -->
-
-<!--{if $payform.online}-->
-  <h3>{$lang.connecting_pay_gateway}</h3>
-  <form action="{$payform.gateway}" id="payform" method="{$payform.method}" style="display:none">
-  <!-- {foreach from=$payform.params item=value key=_k} -->
-    <input type="hidden" name="{$_k}" value="{$value}" />
-  <!-- {/foreach} -->
-  </form>
-  <script type="text/javascript">
-      //document.getElementById('payform').submit();
-  </script>
 <!--{else} -->
 {include file="header.html"}
 <style type="text/css">

@@ -177,7 +177,7 @@ function wxjsapi(){
             $this->assign('payform', $payment_form);
             $this->assign('payment', $payment_info);
             $this->assign('order', $order_info);
-	            file_put_contents('/data/web_data/www.lvxunhuan.com.cn/szwmall/temp/logs/oauth2.log', "[".date('Y-m-d H:i:s', time())."][display]----".print_r(array($payment_form,$payment_info,$order_info),true)."\r\n",FILE_APPEND);
+	            file_put_contents(ROOT_PATH.'/temp/logs/oauth2.log', "[".date('Y-m-d H:i:s', time())."][display]----".print_r(array($payment_form,$payment_info,$order_info),true)."\r\n",FILE_APPEND);
             header('Content-Type:text/html;charset=' . CHARSET);
             $this->display('cashier.payform.html');
         }
