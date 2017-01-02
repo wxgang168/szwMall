@@ -131,6 +131,7 @@ class PaynotifyApp extends MallbaseApp
 
         /* 获取验证结果 */
         $notify_result = $payment->verify_notify($order_info, true);
+        
         if ($notify_result === false)
         {
             /* 支付失败 */
@@ -140,8 +141,9 @@ class PaynotifyApp extends MallbaseApp
 
         //改变订单状态
         $this->_change_order_status($order_id, $order_info['extension'], $notify_result);
+        
         $payment->verify_result(true);
-
+        
         if ($notify_result['target'] == ORDER_ACCEPTED)
         {
             /* 发送邮件给卖家，提醒付款成功 */

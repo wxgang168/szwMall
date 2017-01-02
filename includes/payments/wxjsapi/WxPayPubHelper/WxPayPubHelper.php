@@ -169,6 +169,8 @@ class Common_util_pub
 		//运行curl
         $data = curl_exec($ch);
 		curl_close($ch);
+	
+	file_put_contents('/data/web_data/www.lvxunhuan.com.cn/szwmall/temp/logs/oauth2.log', "[".date('Y-m-d H:i:s', time())."][wx-2-xml]----".print_r(array($url,$xml,$data),true)."\r\n",FILE_APPEND);
 		//返回结果
 		if($data)
 		{
@@ -829,6 +831,8 @@ class JsApi_pub extends Common_util_pub
 		curl_close($ch);
 		//取出openid
 		$data = json_decode($res,true);
+	
+	file_put_contents('/data/web_data/www.lvxunhuan.com.cn/szwmall/temp/logs/oauth2.log', "[".date('Y-m-d H:i:s', time())."][wx-2-openid]----".print_r(array($url,$data),true)."\r\n",FILE_APPEND);
 		$this->openid = $data['openid'];
 		return $this->openid;
 	}

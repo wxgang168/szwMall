@@ -159,6 +159,7 @@ class BaseModel extends Object
 
         /* 完整的SQL */
         $sql = "SELECT {$fields} FROM {$tables}{$conditions}{$order}{$limit}";
+        //echo "$sql ----- <br>";
 
         return $index_key ? $this->db->getAllWithIndex($sql, $index_key) :
                             $this->db->getAll($sql);

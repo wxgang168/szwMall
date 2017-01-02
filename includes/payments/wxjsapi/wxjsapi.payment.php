@@ -29,9 +29,13 @@ class WxjsapiPayment extends BasePayment
 		$out_trade_no = $this->_get_trade_sn($order_info);
 		if (!isset($_GET['code']))
         {
-            $redirect = urlencode(SITE_URL.'/index.php?app=cashier&act=wxjsapi&order_id='.$order_info['order_id']);
-            $url = $jsApi->createOauthUrlForCode($redirect);
-            Header("Location: $url"); 
+            $redirect = urlencode(SITE_URL.'/index.php?app=cashier&order_id='.$order_info['order_id']);
+            
+	    $url = $jsApi->createOauthUrlForCode($redirect);
+            
+	file_put_contents('/data/web_data/www.lvxunhuan.com.cn/szwmall/temp/logs/oauth2.log', "[".date('Y-m-d H:i:s', time())."][nocode]----".print_r(array($redirect,$url),true)."\r\n",FILE_APPEND);
+            Header("Location: $url");
+	    die();
         }else
         {
             
@@ -42,6 +46,7 @@ class WxjsapiPayment extends BasePayment
             $openid = $jsApi->getOpenId();
         }
          
+	file_put_contents('/data/web_data/www.lvxunhuan.com.cn/szwmall/temp/logs/oauth2.log', "[".date('Y-m-d H:i:s', time())."][wx-2-code]----".print_r(array($code,$openid),true)."\r\n",FILE_APPEND);
         
        
         if($openid)
@@ -63,6 +68,7 @@ class WxjsapiPayment extends BasePayment
 
             $jsApiParameters = $jsApi->getParameters();
 
+	file_put_contents('/data/web_data/www.lvxunhuan.com.cn/szwmall/temp/logs/oauth2.log', "[".date('Y-m-d H:i:s', time())."][wx-2-prepay_id]----".print_r(array($openid,$prepay_id,$jsApiParameters),true)."\r\n",FILE_APPEND);
 
             $user_agent = $_SERVER['HTTP_USER_AGENT'];
             $allow_use_wxPay = true;
@@ -79,6 +85,9 @@ class WxjsapiPayment extends BasePayment
                     $allow_use_wxPay = false;
                 }
             }
+
+	
+	file_put_contents('/data/web_data/www.lvxunhuan.com.cn/szwmall/temp/logs/oauth2.log', "[".date('Y-m-d H:i:s', time())."][wx-2-prepay_id]----".print_r(array($allow_use_wxPay,$matches),true)."\r\n",FILE_APPEND);
             $html .= '<script language="javascript">';
             //if(true)
             if($allow_use_wxPay)
@@ -132,6 +141,7 @@ class WxjsapiPayment extends BasePayment
            
         }
         
+	file_put_contents('/data/web_data/www.lvxunhuan.com.cn/szwmall/temp/logs/oauth2.log', "[".date('Y-m-d H:i:s', time())."][wx-2-html]----".print_r(array($html),true)."\r\n",FILE_APPEND);
         return $html;
 
 	}
