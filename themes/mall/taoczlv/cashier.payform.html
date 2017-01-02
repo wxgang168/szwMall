@@ -1,3 +1,28 @@
+<!--{if $payform.payment_code  eq  'wxpayv3' }-->
+  {include file="header.html"}
+<style type="text/css">
+.mall-nav{ display:none}
+</style>
+<div id="main" class="w-full">
+<div id="page-cashier" class="w">
+   {include file="curlocal.html"}
+   <div class="order-form payform clearfix border mt10 mb20">
+      <div class="title padding5 strong">{$lang.payment_desc}</div>
+      <div class="detail padding10">
+            {$payment.order_sn}
+      </div>
+      <div class="form padding10">
+            {$payform}   
+      </div>
+    </div>
+</div>
+</div>
+{include file=server.html}
+{include file="footer.html"}
+
+
+<!--{else} -->
+
 <!--{if $payform.online}-->
   <h3>{$lang.connecting_pay_gateway}</h3>
   <form action="{$payform.gateway}" id="payform" method="{$payform.method}" style="display:none">
@@ -8,7 +33,7 @@
   <script type="text/javascript">
       //document.getElementById('payform').submit();
   </script>
-{else}
+<!--{else} -->
 {include file="header.html"}
 <style type="text/css">
 .mall-nav{ display:none}
