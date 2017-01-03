@@ -208,7 +208,7 @@ class WxPayResults extends WxPayDataBase
 			 return $obj->GetValues();
 		}
 		file_put_contents(ROOT_PATH.'/temp/logs/debug.log', "[".date('Y-m-d H:i:s', time())."][xml_to_value]----".print_r($obj->GetValues(),true)."\r\n",FILE_APPEND);
-		$obj->CheckSign();
+		// TODO $obj->CheckSign();
         return $obj->GetValues();
 	}
 }
