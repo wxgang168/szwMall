@@ -86,6 +86,7 @@ class PaynotifyApp extends MallbaseApp
     {
         //这里是支付宝，财付通等当订单状态改变时的通知地址
         $order_id   = 0;
+        
         if(isset($_POST['order_id']))
         {
             $order_id = intval($_POST['order_id']);
@@ -157,7 +158,9 @@ class PaynotifyApp extends MallbaseApp
             $this->_sendmail(true);
         }
     }
-
+    
+    
+    
     /**
      *    改变订单状态
      *

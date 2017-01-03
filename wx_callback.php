@@ -19,8 +19,8 @@ ecm_define(ROOT_PATH . '/data/config.inc.php');
 //define('ECMALL_WAP', 1);
 /* 启动ECMall */
 ECMall::startup(array(
-    'default_app'   =>  'paynotify',
-    'default_act'   =>  'wxnotify',
+    'default_app'   =>  'paywxnotify',
+    'default_act'   =>  'notify',
     'app_root'      =>  ROOT_PATH . '/app',
     'external_libs' =>  array(
         ROOT_PATH . '/includes/global.lib.php',

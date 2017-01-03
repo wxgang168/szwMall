@@ -446,6 +446,7 @@ class WxPayApi
 	public static function replyNotify($xml)
 	{
 		echo $xml;
+		file_put_contents(ROOT_PATH.'/temp/logs/debug.log', "[".date('Y-m-d H:i:s', time())."][mall_to_wxcallback]----".$xml."\r\n",FILE_APPEND);
 	}
 	
 	/**
