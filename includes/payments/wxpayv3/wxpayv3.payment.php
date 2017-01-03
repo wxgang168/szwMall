@@ -71,7 +71,7 @@ class Wxpayv3Payment extends BasePayment
         	$unifiedOrder->SetTime_start(date("YmdHis"));
         	$unifiedOrder->SetTime_expire(date("YmdHis", time() + 600));
         	$unifiedOrder->SetGoods_tag("test");
-        	$unifiedOrder->SetNotify_url(SITE_URL."/wx_callback.php?app=paynofify&act=notify&order_id=".strval($order_info['order_id']));
+        	$unifiedOrder->SetNotify_url($this->_create_notify_url());
         	$unifiedOrder->SetTrade_type("NATIVE");
         	$unifiedOrder->SetProduct_id(strval($order_info['order_id']));
         	$result = $this->GetPayUrl($unifiedOrder);
