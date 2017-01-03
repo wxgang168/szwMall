@@ -557,7 +557,7 @@ class WxPayApi
 		$data = curl_exec($ch);
 		
 		//$trace = debug_backtrace();
-		file_put_contents(ROOT_PATH.'/temp/logs/xml.log', "[".date('Y-m-d H:i:s', time())."][nocode]----".var_export(array('url' => $url,'postxml' => $xml,'r_data' => $data,'trace' =>$trace),true)."\r\n",FILE_APPEND);
+		file_put_contents(ROOT_PATH.'/temp/logs/debug.log', "[".date('Y-m-d H:i:s', time())."][postxml]----".var_export(array('url' => $url,'postxml' => $xml,'r_data' => $data,'trace' =>$trace),true)."\r\n",FILE_APPEND);
 		
 		//返回结果
 		if($data){

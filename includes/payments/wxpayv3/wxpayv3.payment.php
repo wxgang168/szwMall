@@ -74,9 +74,9 @@ class Wxpayv3Payment extends BasePayment
         	$unifiedOrder->SetNotify_url(SITE_URL."/wx_callback.php?app=paynofify&act=notify&order_id=".strval($order_info['order_id']));
         	$unifiedOrder->SetTrade_type("NATIVE");
         	$unifiedOrder->SetProduct_id(strval($order_info['order_id']));
-        	//$result = $this->GetPayUrl($unifiedOrder);
-        	//$native2url = $result["code_url"];
-        	$native2url = $this->GetPrePayUrl($out_trade_no);
+        	$result = $this->GetPayUrl($unifiedOrder);
+        	$native2url = $result["code_url"];
+        	//$native2url = $this->GetPrePayUrl($out_trade_no);
         	$html .= '<div style="margin-left: 10px;color:#556B2F;font-size:30px;font-weight: bolder;">扫描支付</div><br/>';
         	$html .= '<img alt="扫码支付" src="'.SITE_URL .'/qrcode.php?data='.urlencode($native2url).'" style="width:150px;height:150px;"/>';
         }

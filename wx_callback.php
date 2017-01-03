@@ -1,6 +1,9 @@
 <?php
 
 define('ROOT_PATH', dirname(__FILE__));
+$xml = $GLOBALS['HTTP_RAW_POST_DATA'];
+
+file_put_contents(ROOT_PATH.'/temp/logs/debug.log', "[".date('Y-m-d H:i:s', time())."][wx_callback_begin]----".$xml."\r\n",FILE_APPEND);
 
 /**
  * 安装判断
