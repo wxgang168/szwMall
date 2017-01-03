@@ -179,7 +179,12 @@ function wxjsapi(){
             $this->assign('order', $order_info);
 	            file_put_contents(ROOT_PATH.'/temp/logs/oauth2.log', "[".date('Y-m-d H:i:s', time())."][display]----".print_r(array($payment_form,$payment_info,$order_info),true)."\r\n",FILE_APPEND);
             header('Content-Type:text/html;charset=' . CHARSET);
-            $this->display('cashier.payform.html');
+            if ($order_info['payment_code'] == 'wxpayv3') {
+            	$this->display('cashier.payform_wx.html');
+            }else{
+            	$this->display('cashier.payform.html');
+            }
+            
         }
     }
 
