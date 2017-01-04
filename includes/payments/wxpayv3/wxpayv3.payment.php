@@ -138,7 +138,7 @@ class Wxpayv3Payment extends BasePayment
 		}
 	}
 	
-    function _create_notify_url($order_id)
+    function _create_notify_url()
     {
         return SITE_URL . "/wx_callback.php";
     }
