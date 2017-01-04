@@ -93,6 +93,7 @@ class WxPayNotify extends WxPayNotifyReply
     	if (!$result){
     		return false;
     	}
+    	
     	//TODO 用户基础该类之后需要重写该方法，成功的时候返回true，失败返回false
     	//------return true;
     	$out_trade_no   = $data['out_trade_no'];
@@ -107,7 +108,11 @@ class WxPayNotify extends WxPayNotifyReply
     	
     	/* 获取订单信息 */
     	$model_order =& m('order');
-    	$order_info  = $model_order->get(array('out_trade_no' => $out_trade_no));
+    	
+    	$order_info = $model_order->get(array(
+    		'conditions' => " out_trade_sn = '{$out_trade_no}' ",
+    	));
+    	
     	if (empty($order_info))
     	{
     		/* 没有该订单 */
@@ -118,6 +123,7 @@ class WxPayNotify extends WxPayNotifyReply
     	
     	
     	$notify_result['target'] = ORDER_ACCEPTED;
+    	
     	//改变订单状态
     	$this->_change_order_status($order_info['order_id'], $order_info['extension'], $notify_result);
     	$notify_result['order'] = $order_info;
@@ -184,7 +190,7 @@ class WxPayNotify extends WxPayNotifyReply
     //重写回调处理函数
     public function InnerNotifyProcess($data, &$msg)
     {
-    	Log::DEBUG("call back:" . json_encode($data));
+    	//Log::DEBUG("call back:" . json_encode($data));
     	$notfiyOutput = array();
     
     	if(!array_key_exists("transaction_id", $data)){
