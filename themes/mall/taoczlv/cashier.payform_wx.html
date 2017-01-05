@@ -1,5 +1,23 @@
-
 {include file="header.html"}
+
+<script type="text/javascript">
+//<!CDATA[
+$(function(){
+    var counter = 20;
+    var iTime =setInterval(function(){
+        counter --;
+        $('#timer').html(counter);
+        console.log(counter);
+        if (counter <= 0) {
+            clearInterval(iTime);
+            $('#timer').html(counter);
+        }
+    },1000);         
+});
+//]]>
+
+</script>
+
 <style type="text/css">
 .mall-nav{ display:none}
 </style>
@@ -29,7 +47,17 @@
                 </ul>
                 <ul>
                     <li>{$lang.payment_name}&nbsp;:&nbsp;{$order.payment_name}</li>
-                    <li class="center">{$payform}</li>
+                    
+                    <li class="center">
+                        <div style="margin-left: 10px;color:#556B2F;font-size:30px;font-weight: bolder;">扫码支付</div>
+                    </li>
+                    
+                    <li class="center">
+                        
+                        {$payform}
+                        <div style="margin-left: 10px;color:#556B2F;font-size:30px;font-weight: bolder;"> <span id='timer' style="color:red;font-size:30px;font-weight: bolder;">20</span>后二维码将失效</div>
+                    </li>
+                    
                 </ul>
             </div>
 
