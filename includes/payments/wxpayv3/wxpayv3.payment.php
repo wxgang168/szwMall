@@ -27,8 +27,8 @@ class Wxpayv3Payment extends BasePayment
             define("WXAPPSECRET", $this->_config['appsecret']);
             define("WXCURL_TIMEOUT", 30);
             define('WXNOTIFY_URL',$this->_create_notify_url($order_info['order_id']));
-//             define('WXJS_API_CALL_URL',$this->_create_notify_url($order_info['order_id']));
-//             define('WXSSLCERT_PATH',ROOT_PATH.'/data/cacert/'.$order_info['seller_id'].'/apiclient_cert.pem');
+//define('WXJS_API_CALL_URL',$this->_create_notify_url($order_info['order_id']));
+//          define('WXSSLCERT_PATH',ROOT_PATH.'/data/cacert/'.$order_info['seller_id'].'/apiclient_cert.pem');
 //             define('WXSSLKEY_PATH',ROOT_PATH.'/data/cacert/'.$order_info['seller_id'].'/apiclient_key.pem');
             define('WXSSLCERT_PATH',ROOT_PATH.'/data/cacert/apiclient_cert.pem');
             define('WXSSLKEY_PATH',ROOT_PATH.'/data/cacert/apiclient_key.pem');

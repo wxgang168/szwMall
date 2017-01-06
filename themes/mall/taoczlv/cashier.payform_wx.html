@@ -2,6 +2,8 @@
 
 <script type="text/javascript">
 //<!CDATA[
+
+/*
 $(function(){
     var counter = 20;
     var iTime =setInterval(function(){
@@ -14,6 +16,8 @@ $(function(){
         }
     },1000);         
 });
+*/
+
 //]]>
 
 </script>
@@ -40,27 +44,22 @@ $(function(){
       <div class="detail padding10">
       
             <div class="weixinzhifu">
-            <div class="title padding5 strong">{$lang.payment_desc}</div>
+                <div class="title padding5 strong">{$lang.payment_desc}</div>
                 <ul class="order">
                     <li class="left">{$lang.order_sn}&nbsp;:&nbsp;{$order.order_sn}</li>
                     <li class="right">{$lang.order_amount}&nbsp;:&nbsp;<span>{$order.order_amount}</span></li>
                 </ul>
                 <ul>
                     <li>{$lang.payment_name}&nbsp;:&nbsp;{$order.payment_name}</li>
-                    
                     <li class="center">
                         <div style="margin-left: 10px;color:#556B2F;font-size:30px;font-weight: bolder;">扫码支付</div>
                     </li>
-                    
                     <li class="center">
-                        
                         {$payform}
-                        <div style="margin-left: 10px;color:#556B2F;font-size:30px;font-weight: bolder;"> <span id='timer' style="color:red;font-size:30px;font-weight: bolder;">20</span>后二维码将失效</div>
+                        <div style="margin-left: 10px;color:red;">2小时后此二维码将失效</div>
                     </li>
-                    
                 </ul>
             </div>
-
       </div>
     </div>
 </div>
