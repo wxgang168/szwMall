@@ -72,7 +72,7 @@ class Seller_orderApp extends StoreadminbaseApp
 
         $model_order =& m('order');
         $order_info  = $model_order->findAll(array(
-            'conditions'    => "order_alias.order_id={$order_id} AND seller_id=" . $this->visitor->get('manage_store'),
+            'conditions'    => "order_alias.order_id={$order_id} " . ( $this->visitor->get('manage_store') == '1' ? "" : " AND seller_id=" . $this->visitor->get('manage_store') ) ,
             'join'          => 'has_orderextm',
         ));
         $order_info = current($order_info);
@@ -176,6 +176,7 @@ class Seller_orderApp extends StoreadminbaseApp
             ));
 
             /* 发送给买家邮件，提示等待安排发货 */
+            /*
             $model_member =& m('member');
             $buyer_info   = $model_member->get($order_info['buyer_id']);
             $mail = get_mail('tobuyer_offline_pay_success_notify', array('order' => $order_info));
@@ -188,6 +189,8 @@ class Seller_orderApp extends StoreadminbaseApp
                     'shipped'
                 ), //可以取消可以发货
             );
+            */
+
 
             $this->pop_warning('ok');
         }
@@ -329,6 +332,7 @@ class Seller_orderApp extends StoreadminbaseApp
             ));
 
             /* 发送给买家邮件通知，订单金额已改变，等待付款 */
+            /*
             $model_member =& m('member');
             $buyer_info   = $model_member->get($order_info['buyer_id']);
             $mail = get_mail('tobuyer_adjust_fee_notify', array('order' => $order_info));
@@ -337,6 +341,7 @@ class Seller_orderApp extends StoreadminbaseApp
             $new_data = array(
                 'order_amount'  => price_format($order_amount),
             );
+            */
 
             $this->pop_warning('ok');
         }
@@ -403,6 +408,7 @@ class Seller_orderApp extends StoreadminbaseApp
 
 
             /* 发送给买家订单已发货通知 */
+            /*
             $model_member =& m('member');
             $buyer_info   = $model_member->get($order_info['buyer_id']);
             $order_info['invoice_no'] = $edit_data['invoice_no'];
@@ -495,6 +501,7 @@ class Seller_orderApp extends StoreadminbaseApp
 				$this->pop_warning('ok');
 				return;
 			}
+            */
 			// end
 
             $new_data = array(
@@ -538,7 +545,7 @@ class Seller_orderApp extends StoreadminbaseApp
         $model_order    =&  m('order');
         /* 只有已发货的货到付款订单可以收货 */
         $order_info     = $model_order->find(array(
-            'conditions'    => "order_id" . db_create_in($order_ids) . " AND seller_id=" . $this->visitor->get('manage_store') . " AND status " . db_create_in($status) . $ext,
+            'conditions'    => "order_id" . db_create_in($order_ids) . ( ($this->visitor->get('manage_store') == '1') ? '' : " AND seller_id=" . $this->visitor->get('manage_store') )  . " AND status " . db_create_in($status) . $ext,
         ));
         $ids = array_keys($order_info);
         if (!$order_info)
@@ -595,7 +602,7 @@ class Seller_orderApp extends StoreadminbaseApp
                     'actions'   => array(), //取消订单后就不能做任何操作了
                 );
             }
-            $this->pop_warning('ok', 'seller_order_cancel_order');
+            $this->pop_warning('ok');//, 'seller_order_cancel_order'
         }
 
     }
@@ -704,7 +711,7 @@ class Seller_orderApp extends StoreadminbaseApp
         $model_order    =&  m('order');
         /* 只有已发货的货到付款订单可以收货 */
         $order_info     = $model_order->get(array(
-            'conditions'    => "order_id={$order_id} AND seller_id=" . $this->visitor->get('manage_store') . " AND status " . db_create_in($status) . $ext,
+            'conditions'    => "order_id={$order_id} " . ( ($this->visitor->get('manage_store') == '1') ? '' : " AND seller_id=" . $this->visitor->get('manage_store') ) . " AND status " . db_create_in($status) . $ext,
         ));
         if (empty($order_info))
         {
@@ -766,7 +773,7 @@ class Seller_orderApp extends StoreadminbaseApp
 
         /* 查找订单 */
         $orders = $model_order->findAll(array(
-            'conditions'    => "seller_id=" . $this->visitor->get('manage_store') . "{$conditions}",
+            'conditions'    => ( ($this->visitor->get('manage_store') == '1') ? '' : "seller_id=" . $this->visitor->get('manage_store') ) . "{$conditions}",
             'count'         => true,
             'join'          => 'has_orderextm',
             'limit'         => $page['limit'],

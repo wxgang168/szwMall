@@ -60,8 +60,30 @@ $(function(){
             <td>{$order.buyer_name|escape}</td>
             <td>{$order.order_amount|price}</td>
             <td>{$order.payment_name|escape|default:-}</td>
-            <td>{$order.status|modifier:order_status}</td>
-            <td><a href="index.php?app=order&amp;act=view&amp;id={$order.order_id}">{$lang.view}</a></td>
+            <td>
+                <div class="btn-order-status">
+                    <p><span class="{if $order.status==0}gray-color{else}color4{/if}">{$order.status|modifier:order_status}</span></p>
+                </div>
+            </td>
+            <td>
+                <a href="index.php?app=order&amp;act=view&amp;id={$order.order_id}">{$lang.view}</a>
+                <!--//调整费用-->
+                <a href="index.php?app=order&amp;act=adjust_fee&amp;id={$order.order_id}"{if $order.status neq ORDER_PENDING and $order.status neq ORDER_SUBMITTED} style="display:none"{/if}>{$lang.adjust_fee}</a>
+                <!--//收到货款-->
+                <a href="index.php?app=order&amp;act=received_pay&amp;id={$order.order_id}"{if $order.status neq ORDER_PENDING} style="display:none"{/if}>{$lang.received_pay}</a>
+
+                <!--//发货-->
+                <a href="index.php?app=order&amp;act=shipped&amp;id={$order.order_id}"{if $order.status neq ORDER_ACCEPTED} style="display:none"{/if}>{$lang.shipped_order}</a>
+                <!--//取消订单 不是取消和完成的订单就可以取消-->
+                <a href="index.php?app=order&amp;act=cancel_order&amp;id={$order.order_id}"{if $order.status eq ORDER_CANCELED or $order.status eq ORDER_FINISHED} style="display:none"{/if}>{$lang.cancel_order}</a>
+                <!--//确认订单-->
+                <a href="index.php?app=order&amp;act=confirm_cod_order&amp;id={$order.order_id}"{if $order.status neq ORDER_SUBMITTED} style="display:none" {/if}>{$lang.confirm_cod_order}</a>
+                <!--//完成订单-->
+                <a href="index.php?app=order&amp;act=finish_order&amp;id={$order.order_id}"{if $order.payment_code neq 'cod' or $order.status neq ORDER_SHIPPED} style="display:none"{/if} >{$lang.finish_order}</a>
+                <!--//修改单号-->
+                <a href="index.php?app=order&amp;act=shipped&amp;id={$order.order_id}"{if $order.status neq ORDER_SHIPPED} style="display:none" {/if}>{$lang.edit_invoice_no}</a>
+                
+            </td>
         </tr>
         <!--{foreachelse}-->
         <tr class="no_data">

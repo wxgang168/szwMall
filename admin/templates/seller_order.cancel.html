@@ -1,0 +1,136 @@
+{include file="header.html"}
+
+<script type="text/javascript">
+$(function(){
+        $('#cancel_button').click(function(){
+            DialogManager.close('seller_order_cancel_order');
+         });
+       $("input[name='cancel_reason']").click(function(){
+        if ($(this).attr('flag') == 'other_reason')
+        {
+            $('#other_reason').show();
+        }
+        else
+        {
+            $('#other_reason').hide();
+        }
+    });
+});
+</script>
+
+<script type="text/javascript">
+$(function(){
+    $('#user_form').validate({
+        errorPlacement: function(error, element){
+            $(element).next('.field_notice').hide();
+            $(element).after(error);
+        },
+        success       : function(label){
+            label.addClass('right').text('OK!');
+        },
+        onkeyup    : false,
+        rules : {
+            user_name : {
+                required : true,
+                byteRange: [3,15,'{$charset}'],
+                remote   : {
+                    url :'index.php?app=user&act=check_user',
+                    type:'get',
+                    data:{
+                        user_name : function(){
+                            return $('#user_name').val();
+                        },
+                        id : '{$user.user_id}'
+                    }
+                }
+            },
+            password: {
+                <!--{if $smarty.get.act eq 'add'}-->
+                required : true,
+                <!--{/if}-->
+                maxlength: 20,
+                minlength: 6
+            },
+            email   : {
+                required : true,
+                email : true
+            }
+            {if !$set_avatar}
+            ,
+            portrait : {
+                accept : 'png|gif|jpe?g'
+            }
+            {/if}
+        },
+        messages : {
+            user_name : {
+                required : '{$lang.user_not_empty}',
+                byteRange: '{$lang.user_length_limit}',
+                remote   : '{$lang.name_exist}'
+            },
+            password : {
+                <!--{if $smarty.get.act eq 'add'}-->
+                required : '{$lang.password_empty}',
+                <!--{/if}-->
+                maxlength: '{$lang.password_limit}',
+                minlength: '{$lang.password_limit}'
+            },
+            email  : {
+                required : '{$lang.email_not_empty}',
+                email   : '{$lang.currect_email}'
+            }
+            {if !$set_avatar}
+            ,
+            portrait : {
+                accept : '{$lang.note_portrait}'
+            }
+            {/if}
+        }
+    });
+});
+</script>
+<div id="rightTop">
+  <p>{$lang.cancel_order}</p>
+  <ul class="subnav">
+    <li><a class="btn1" href="index.php?app=order">{$lang.manage}</a></li>
+  </ul>
+</div>
+<div class="info">
+  <form method="post" id="user_form" action="index.php?app=order&amp;act=cancel_order&amp;id={$order_id}">
+    <table class="infoTable">
+      <tr>
+        <th class="paddingT15"></th>
+        <td class="paddingT15 wordSpacing5">{$lang.cancel_order_confirm}</td>
+      </tr>
+      <!--{foreach from=$orders item=order}-->
+      <tr>
+        <th class="paddingT15"> {$lang.order_sn}:</th>
+        <td class="paddingT15 wordSpacing5">{$order.order_sn}</td>
+      </tr>
+      <!--{/foreach}-->
+      <tr>
+        <th class="paddingT15"> {$lang.cancel_reason}:</th>
+        <td class="paddingT15 wordSpacing5">
+            <dd>
+                <div class="li"><input type="radio" checked name="cancel_reason" id="d1" value="{$lang.cancel_reason1}" /> <label for="d1">{$lang.cancel_reason1}</label></div>
+                <div class="li"><input type="radio" name="cancel_reason" id="d2" value="{$lang.cancel_reason2}" /> <label for="d2">{$lang.cancel_reason2}</label></div>
+                <div class="li"><input type="radio" name="cancel_reason" id="d3" value="{$lang.cancel_reason3}" /> <label for="d3">{$lang.cancel_reason3}</label></div>
+                <div class="li"><input type="radio" name="cancel_reason" flag="other_reason" id="d4" value="{$lang.other_reason}" /> <label for="d4">{$lang.other_reason}</label></div>
+            </dd>
+            <dd id="other_reason" style="display:none">
+                <textarea id="other_reason_input" class="text" style="width:200px;" name="remark"></textarea>
+            </dd>
+        </td>
+      </tr>
+
+      <tr>
+        <th></th>
+        <td class="ptb20"><input class="formbtn" type="submit" name="Submit" value="{$lang.submit}" />
+          <input class="formbtn" type="reset" name="Reset" value="{$lang.reset}" />        
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+
+{include file="footer.html"}

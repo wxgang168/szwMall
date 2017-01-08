@@ -1,4 +1,5 @@
 <script type="text/javascript">
+<script type="text/javascript">
 var _orig_goods_amount = {$order.goods_amount},
     _orig_shipping_fee = {$shipping.shipping_fee},
     _orig_order_amount = {$order.order_amount};
@@ -23,7 +24,7 @@ function recount_order_amount(){
 .ajax_form_block { border-bottom:#dadada 1px dotted; padding-bottom:15px; padding-top:15px; }
 </style>
 <div class="eject_con">
-    <form  method="post" target="seller_order" action="index.php?app=seller_order&act=adjust_fee&order_id={$order.order_id}&ajax">
+    <form  method="post" action="index.php?app=order&act=adjust_fee&id={$order.order_id}">
     <div class="content_line">
     <div id="warning"></div>
     {$lang.buyer_name}:&nbsp;&nbsp;{$order.buyer_name|escape}<br />{$lang.order_sn}&nbsp;&nbsp;:<strong class="color8">{$order.order_sn}</strong></div>

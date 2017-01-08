@@ -47,6 +47,38 @@ return array(
     'postscript' =>'买家附言',
     'groupbuy_detail' => '团购详情',
     'groupbuy' => '团购',
-    'preference' => '优惠了'
+    'preference' => '优惠了',
+    
+    'adjust_fee_notice'     => '输入要修改的金额。不要在输入框内加符号或汉字，只填数字即可。',
+
+    'confirm_cod_order'  => '确认订单',
+    'adjust_fee'    => '调整费用',
+    'adjust_fee_successed'  => '费用调整成功。',
+    'shipped_successed'     => '填写发货信息成功。',
+    'shipped_order'         => '发货',
+    'received_pay'          => '收到货款',
+    'received_pay_successed'=> '操作成功！请尽快发货',
+    'confirm_order_successed'=> '您已成功确认该订单，请尽快发货',
+    'adjust_fee_successed'  => '调整费用成功，请通知买家付款',
+
+    'edit_invoice_no'      => '修改单号',
+    'pay_message'           => '支付留言',
+    'have_pay_message'      => '有支付信息',
+    'edit_invoice_no'      => '修改单号',
+    'cancel_order_confirm'  => '您是否确定要取消以下订单？',
+    'cancel_reason1'    => '无法备齐货物',
+    'cancel_reason2'    => '不是有效的订单',
+    'cancel_reason3'    => '买家主动要求',
+    'other_reason'    => '其他原因',
+    'confirm_order_confirm' => '您确定要确认以下订单吗？',
+    'received_pay_confirm'  => '您确定已经收到买家的货款了吗？',
+    'input_invoice_no'      => '请输入您的物流单号',
+    'finish_order_notice'  => '该订单是货到付款的订单，因此在您确认收到货款后，该交易将完成',
+    'invoice_no_empty'      => '请输入发货单号',
+    'adjust_fee_notice'     => '输入要修改的金额。不要在输入框内加符号或汉字，只填数字即可。',
+    'finish_order'          => '完成交易',
+    'cancel_order'          => '取消订单',
+    'operate_reason'          => '操作原因',
+    
 );
 ?>
