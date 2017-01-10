@@ -8,6 +8,7 @@ return array(
     'base_setting'  => '网站设置',
     'region' => '地区设置',
     'integrate' => '会员整合',
+    'shipping' => '物流设置',
     'payment' => '支付方式',
     'theme' => '主题设置',
     'template' => '模板编辑',

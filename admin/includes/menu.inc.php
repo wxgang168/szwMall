@@ -54,6 +54,10 @@ return array(
                 'text'  => Lang::get('region'),
                 'url'   => 'index.php?app=region',
             ),
+            'shipping' => array(
+                'text'  => Lang::get('shipping'),
+                'url'   => 'index.php?app=shipping',
+            ),
             'payment' => array(
                 'text'  => Lang::get('payment'),
                 'url'   => 'index.php?app=payment',

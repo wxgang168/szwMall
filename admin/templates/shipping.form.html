@@ -1,0 +1,182 @@
+{include file="header.html"}
+<script type="text/javascript">
+$(function(){
+   regionInit("region");
+   $('#add_region_button').click(function(){
+        var region_id = $('#region_id').val();
+        var region_name = $('#region_name').val();
+        if(!region_id || !region_name){
+            return;
+        }
+        if($('#region_' + region_id).length == 0){
+            $('#current_cod_regions').append($('<label id="region' + region_id + '"><input type="checkbox" checked="true" name="cod_regions[' + region_id + ']" id="region_' + region_id + '" value="' + region_name + '" />&nbsp;' + region_name + '<a href="javascript:void(0);" class="delete" onclick="del_region('+region_id+')">{$lang.drop}</a></label>'));
+        }
+   });
+
+   $("input[name='cod_region_assign']").click(function(){
+		if ($(this).val() == 1)
+		{
+			$('#region').show();
+		}
+		else
+		{
+			$('#region').hide();
+		}
+	});
+   
+   $('#shipping_form').validate({
+         errorLabelContainer: $('#warning'),
+        invalidHandler: function(form, validator) {
+           var errors = validator.numberOfInvalids();
+           if(errors)
+           {
+               $('#warning').show();
+           }
+           else
+           {
+               $('#warning').hide();
+           }
+        },
+        onkeyup : false,
+        rules : {
+            shipping_name : {
+                required : true
+            },
+            first_price   : {
+                required : true,
+                number   : true
+            }
+        },
+        messages:{
+            shipping_name : {
+                required : '{$lang.name_not_null}.'
+            },
+            first_price   : {
+                required : '{$lang.first_price_not_null}.',
+                number   : '{$lang.number_only}'
+            }
+        }
+    });
+});
+function del_region(region_id){
+    $('#region'+region_id).remove();
+}
+
+</script>
+<div id="rightTop">
+  <p>{$lang.shipping}</p>
+  <ul class="subnav">
+    <li><a class="btn1" href="index.php?app=shipping">{$lang.manage}</a></li>
+    <li>
+      <!-- {if $shipping.shipping_id} -->
+      <a class="btn1" href="index.php?app=shipping&amp;act=add">{$lang.add}</a>
+      <!-- {else} -->
+      <span>{$lang.add}</span>
+      <!-- {/if} -->
+    </li>
+  </ul>
+</div>
+<div class="info">
+  <form method="post" id="shipping_form">
+    <table class="infoTable">
+      <tr>
+        <th class="paddingT15"> {$lang.enabled}:</th>
+        <td class="paddingT15 wordSpacing5"><p>
+            {html_radios options=$yes_or_no checked=$shipping.enabled name=enabled}
+          </p></td>
+      </tr>
+
+	  <tr>
+        <th class="paddingT15"> {$lang.shipping_name}:</th>
+        <td class="paddingT15 wordSpacing5">
+		  <!-- {if $shipping.shipping_id} -->
+          {$shipping.shipping_name|escape}
+          <!-- {else} -->
+          <input class="infoTableInput2" id="shipping_name" type="text" name="shipping_name" value="{$shipping.shipping_name|escape}" />
+          <label class="field_notice">{$lang.shipping_name}</label>
+          <!-- {/if} -->
+		</td>
+      </tr>
+      <tr>
+        <th class="paddingT15"> {$lang.shipping_desc}:</th>
+        <td class="paddingT15 wordSpacing5">
+		<textarea class="text" name="shipping_desc">{$shipping.shipping_desc|escape}</textarea><span>{$lang.shipping_desc_desc}</span>
+      </tr>
+	  <tr>
+		<th class="paddingT15">
+			<label for="parent_id">{$lang.express}:</label></th>
+		<td class="paddingT15 wordSpacing5">
+			<select id="express_id" name="express_id">
+			<option value="0">{$lang.select_pls}</option>
+			{html_options options=$expresses selected=$shipping.express_id}</select>
+		</td>
+	  </tr>
+	  <tr>
+		<th class="paddingT15">
+			<label >{$lang.weightsetting}:</label>
+		</th>
+		<td class="paddingT15 wordSpacing5">
+			<label for="first_weight">{$lang.first_weight}:</label>
+			<select id="first_weight" name="first_weight">{html_options options=$first_weights selected=$shipping.first_weight}</select>
+			<label for="step_weight">{$lang.step_weight}:</label>
+			<select id="step_weight" name="first_weight">{html_options options=$step_weights selected=$shipping.step_weight}</select>
+		</td>
+	  </tr>
+	  <tr>
+        <th class="paddingT15"> <label >{$lang.pricesetting}:</label></th>
+        <td class="paddingT15 wordSpacing5">
+		<label for="first_price">{$lang.first_price}:</label>
+		<input class="infoTableInput2" name="first_price" type="text" id="first_price" value="{$shipping.first_price}" />
+		<label for="step_price">{$lang.step_price}:</label>
+		<input class="infoTableInput2" name="step_price" type="text" id="step_price" value="{$shipping.step_price}" />
+		</td>
+      </tr>
+
+	  <tr>
+        <th class="paddingT15"> <label >{$lang.add_cod_region}:</label></th>
+        <td class="paddingT15 wordSpacing5">
+
+		<input type="radio" name="cod_region_assign" id="d1" value="0" {if $cod_regions |@count eq 0} checked {/if} /> <label for="d1">{$lang.cod_region_all}</label>
+        <input type="radio" name="cod_region_assign"  id="d2" value="1" {if $cod_regions |@count neq 0} checked {/if}/> <label for="d2">{$lang.cod_region_some}</label>
+        </td>
+      </tr>
+	  <tr>
+        <th class="paddingT15"> <label > </label></th>
+        <td class="paddingT15 wordSpacing5">
+		<div id="region" {if $cod_regions[0] eq "0"} style="display:none" {/if}>
+			<input type="hidden" name="region_id" id="region_id" class="mls_id" />
+			<input type="hidden" name="region_name" id="region_name" class="mls_names" />
+			<select>
+			  <option>{$lang.select_pls}</option>
+			  {html_options options=$regions}
+			</select>
+			<input type="button" id="add_region_button" value="{$lang.add}" />
+		</div>
+
+        </td>
+      </tr>
+
+
+	  <tr>
+        <th class="paddingT15"> {$lang.cod_regions}:</th>
+        <td class="paddingT15 wordSpacing5"><p>
+            <div class="zone" id="current_cod_regions">
+				<!--{foreach from=$cod_regions item=cod_r key=cod_r_id}-->
+				<label id="region{$cod_r_id}"><input type="checkbox" checked="true" name="cod_regions[{$cod_r_id}]" id="region_{$cod_r_id}" value="{$cod_r}" />&nbsp;{$cod_r}<a href="javascript:;" class="delete" onclick="del_region({$cod_r_id})">{$lang.drop}</a></label>
+				<!--{/foreach}-->
+
+			</div>
+          </p></td>
+      </tr>
+      <!--if $smarty.get.act eq 'edit'-->
+      <tr>
+        <th></th>
+        <td class="ptb20">
+		<input class="formbtn" type="submit" name="Submit" value="{$lang.submit}" />
+        <input class="formbtn" type="reset" name="Reset" value="{$lang.reset}"  />
+		</td>
+      </tr>
+    </table>
+  </form>
+</div>
+{include file="footer.html"}

@@ -1849,7 +1849,7 @@ class My_goodsApp extends StoreadminbaseApp
     function _addible()
     {
         $payment_mod =& m('payment');
-        $payments = $payment_mod->get_enabled($this->_store_id);
+        $payments = $payment_mod->get_enabled(0);//$this->_store_id update by wxgang
         if (empty($payments))
         {
             $this->show_warning('please_install_payment', 'go_payment', 'index.php?app=my_payment');
@@ -1857,7 +1857,7 @@ class My_goodsApp extends StoreadminbaseApp
         }
 
         $shipping_mod =& m('shipping');
-        $shippings = $shipping_mod->find("store_id = '{$this->_store_id}' AND enabled = 1");
+        $shippings = $shipping_mod->find("store_id = '0' AND enabled = 1");//{$this->_store_id} update by wxgang
         if (empty($shippings))
         {
                   $this->show_warning('please_install_shipping', 'go_shipping', 'index.php?app=my_shipping');
