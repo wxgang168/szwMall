@@ -240,7 +240,7 @@ class OrderApp extends BackendApp
                 'order_amount'  => price_format($order_amount),
             );
 
-            $this->show_message('ok',
+            $this->show_message(Lang::get('ok'),
                 'back_list',    'index.php?app=order',
                 'edit_again',   'index.php?app=order&amp;act=adjust_fee&amp;id=' . $order_id
             );
@@ -308,7 +308,9 @@ class OrderApp extends BackendApp
                 ), //可以取消可以发货
             );
 
-            $this->show_message('ok');
+            $this->show_message(Lang::get('ok'),
+                'back_list',    'index.php?app=order'
+            );
         }
 
     }
@@ -371,7 +373,9 @@ class OrderApp extends BackendApp
                 ), //可以取消可以发货
             );
 
-            $this->show_warning('ok');;
+            $this->show_message(Lang::get('ok'),
+                'back_list',    'index.php?app=order'
+            );
         }
     }
 
@@ -546,7 +550,9 @@ class OrderApp extends BackendApp
                 $new_data['actions'][] = 'finish';
             }
 
-            $this->show_warning('ok');
+            $this->show_message(Lang::get('ok'),
+                'back_list',    'index.php?app=order'
+            );
         }
     }
 
@@ -633,7 +639,9 @@ class OrderApp extends BackendApp
                     'actions'   => array(), //取消订单后就不能做任何操作了
                 );
             }
-            $this->show_warning('ok', 'seller_order_cancel_order');
+            $this->show_message(Lang::get('ok'),
+                'back_list',    'index.php?app=order'
+            );
         }
 
     }
@@ -708,7 +716,9 @@ class OrderApp extends BackendApp
                 'actions'   => array(), //完成订单后就不能做任何操作了
             );
 
-            $this->show_warning('ok');
+            $this->show_message(Lang::get('ok'),
+                'back_list',    'index.php?app=order'
+            );
         }
 
     }

@@ -79,6 +79,9 @@ return array(
     'finish_order'          => '完成交易',
     'cancel_order'          => '取消订单',
     'operate_reason'          => '操作原因',
+	'ok'					=> '操作成功',
+	'edit_again'			=> '再次修改',
+	
     
 );
 ?>
