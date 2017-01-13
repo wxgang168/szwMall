@@ -74,7 +74,7 @@ class OrderApp extends ShoppingbaseApp
 			
 			import('init.lib');
 			$this->assign('coupon_list', Init_OrderApp::get_available_coupon($goods_info['store_id']));
-			
+			//print_r(array($goods_info,$form));
             $this->assign('goods_info', $goods_info);
             $this->assign($form['data']);
             $this->display($form['template']);
@@ -411,6 +411,7 @@ class OrderApp extends ShoppingbaseApp
                 {
                     $return['quantity'] += $goods['quantity'];                      //商品总量
                     $return['amount']   += $goods['quantity'] * $goods['price'];    //商品总价
+					$return['sumweight']   += $goods['quantity'] * $goods['weight'];    //商品总重量
                     $cart_items[$rec_id]['subtotal']    =   $goods['quantity'] * $goods['price'];   //小计
                     empty($goods['goods_image']) && $cart_items[$rec_id]['goods_image']=Conf::get('default_goods_image');
                 }

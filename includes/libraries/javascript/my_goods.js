@@ -64,6 +64,7 @@ function spec_update(){
         }
         tpl.find('*[item="price"]').append('<input type="hidden" name="price['+ item.spec_id +']" value="' + item.price + '" />' + item.price);
         tpl.find('*[item="stock"]').append('<input type="hidden" name="stock['+ item.spec_id +']" value="' + item.stock + '" />' + item.stock);
+		tpl.find('*[item="weight"]').append('<input type="hidden" name="weight['+ item.spec_id +']" value="' + item.weight + '" />' + item.weight);
         tpl.find('*[item="sku"]').append('<input type="hidden" name="sku['+ item.spec_id +']" value="' + item.sku + '" /><input type="hidden" name="spec_id['+ item.spec_id +']" value="' + item.spec_id + '" />' + item.sku);
         tpl.show();
         d_spec_item.before(tpl);
@@ -130,6 +131,7 @@ function spec_editor(){
         item.spec_2 && tpl.find('*[item="spec_2"]').val(item.spec_2);
         tpl.find('*[item="price"]').val(item.price);
         tpl.find('*[item="stock"]').val(item.stock);
+		tpl.find('*[item="weight"]').val(item.weight);
         tpl.find('*[item="sku"]').val(item.sku);
         tpl.find('*[item="spec_id"]').val(item.spec_id);
         tpl.show();
@@ -220,6 +222,8 @@ function spec_editor(){
             var spec_2 = SPEC.spec_name_2 ? $.trim($(this).find('*[item="spec_2"]').val()) : null;
             var price = $.trim($(this).find('*[item="price"]').val());
             var stock = $.trim($(this).find('*[item="stock"]').val());
+			var weight = $.trim($(this).find('*[item="weight"]').val());
+			
             var sku = $.trim($(this).find('*[item="sku"]').val());
             var spec_id = $.trim($(this).find('*[item="spec_id"]').val());
 
@@ -227,9 +231,9 @@ function spec_editor(){
 
             if(SPEC.spec_qty == 1){ // 一个规格
                 var spec_pos = SPEC.spec_name_1 ? 1 : 2;
-                eval('if(spec_' + spec_pos + ' || (!spec_' + spec_pos + ' && !price && !stock && !sku)){}else{complate = false;}');
+                eval('if(spec_' + spec_pos + ' || (!spec_' + spec_pos + ' && !price && !stock && !weight && !sku)){}else{complate = false;}');
             }else{ // 两个规格
-                if((spec_1 && spec_2) || (!spec_1 && !spec_2 && !price && !stock && !sku)){
+                if((spec_1 && spec_2) || (!spec_1 && !spec_2 && !price && !stock && !weight && !sku)){
 
                 }else{
                     complate = false;
@@ -253,6 +257,7 @@ function spec_editor(){
                 'spec_2':spec_2,
                 'price':number_format(price, 2),
                 'stock':number_format(stock, 0),
+				'weight':number_format(weight, 0),
                 'sku':sku,
                 'spec_id':spec_id
                 });

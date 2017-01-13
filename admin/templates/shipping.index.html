@@ -14,6 +14,9 @@
       <td width="20" class="firstCell"><input type="checkbox" class="checkall" /></td>
 	  <td><span ectype="order_by" fieldname="shipping_name">{$lang.shipping_name}</span></td>
       <td>{$lang.shipping_desc}</td>
+	  <td>{$lang.express}</td>
+	  <td>{$lang.first_weight}(kg)</td>
+	  <td>{$lang.step_weight}(kg)</td>
       <td>{$lang.first_price}</td>
 	  <td>{$lang.step_price}</td>
 	  <td>{$lang.enabled}</td>
@@ -25,6 +28,9 @@
       <td class="firstCell"><input type="checkbox" class="checkitem" value="{$shipping.shipping_id}" /></td>
       <td>{$shipping.shipping_name|escape}</td>
       <td>{$shipping.shipping_desc|escape}</td>
+	  <td>{$shipping.express_desc|escape}</td>
+	  <td>{$shipping.first_weight}</td>
+	  <td>{$shipping.step_weight}</td>
       <td>{$shipping.first_price}</td>
 	  <td>{$shipping.step_price}</td>
       <td>

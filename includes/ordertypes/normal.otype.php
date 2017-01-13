@@ -59,7 +59,7 @@ class NormalOrder extends BaseOrder
         $data['regions']            = $this->_get_regions();
 
         /* 配送方式 */
-        $data['shipping_methods']   = $this->_get_shipping_methods($store_id);
+        $data['shipping_methods']   = $this->_get_shipping_methods(0);//TODO $store_id update by wxgang
         if (empty($data['shipping_methods']))
         {
             $this->_error('no_shipping_methods');
@@ -97,6 +97,8 @@ class NormalOrder extends BaseOrder
 
         /* 处理订单收货人信息 */
         $consignee_info = $this->_handle_consignee_info($goods_info, $post);
+
+		//print_r($consignee_info);die("xxxxx");
         if (!$consignee_info)
         {
             /* 收货人信息验证不通过 */

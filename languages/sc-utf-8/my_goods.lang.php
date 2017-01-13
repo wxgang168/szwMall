@@ -23,6 +23,7 @@ return array(
     'spec' => '规格',
     'price' => '价格',
     'stock' => '库存',
+	'weight' => '重量',
     'sku' => '货号',
     'note_for_recommended' => '被推荐的商品会显示在店铺首页',
     'note_for_add_spec' => '您最多可以添加两种商品规格（如：颜色，尺码）如商品没有规格则不用添加',

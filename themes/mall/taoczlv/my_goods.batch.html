@@ -25,6 +25,9 @@ $(function(){
             },
             stock      : {
                 digits    : true
+            },
+            weight      : {
+                digits    : true
             }
         },
         messages : {
@@ -33,6 +36,9 @@ $(function(){
                 min : '{$lang.price_ge_0}'
             },
             stock       : {
+                digits  : '{$lang.number_only}'
+            },
+            weight       : {
                 digits  : '{$lang.number_only}'
             }
         }
@@ -123,6 +129,14 @@ $(function(){
                 <p class="select">
                   <select name="stock_change">{html_options options=$lang.change_array}</select>
                   <input name="stock" type="text" class="text" />
+                </p>
+                <p class="new_add"><span>{$lang.note_for_input}</span></p>
+              </div>
+			  <div class="assort">
+                <p class="txt">{$lang.weight}: </p>
+                <p class="select">
+                  <select name="weight_change">{html_options options=$lang.change_array}</select>
+                  <input name="weight" type="text" class="text" />
                 </p>
                 <p class="new_add"><span>{$lang.note_for_input}</span></p>
               </div>

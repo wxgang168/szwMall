@@ -142,7 +142,7 @@ class BaseOrder extends Object
      */
     function _get_shipping_methods($store_id)
     {
-        if (!$store_id)
+        if (is_null($store_id))
         {
             return array();
         }
@@ -349,10 +349,12 @@ class BaseOrder extends Object
         {
             return false;
         }
+		//print_r(array($consignee_info,$goods_info));
 
         /* 计算配送费用 */
         $shipping_model =& m('shipping');
-        $shipping_info  = $shipping_model->get("shipping_id={$consignee_info['shipping_id']} AND store_id={$goods_info['store_id']} AND enabled=1");
+        $shipping_info  = $shipping_model->get("shipping_id={$consignee_info['shipping_id']} AND store_id=0 AND enabled=1");//TODO {$goods_info['store_id']}
+		
         if (empty($shipping_info))
         {
             $this->_error('no_such_shipping');
@@ -361,7 +363,14 @@ class BaseOrder extends Object
         }
 
         /* 配送费用=首件费用＋超出的件数*续件费用 */
-        $shipping_fee = $shipping_info['first_price'] + ($goods_info['quantity'] - 1) * $shipping_info['step_price'];
+        //$shipping_fee = $shipping_info['first_price'] + ($goods_info['quantity'] - 1) * $shipping_info['step_price'];
+		$shipping_fee = 0;
+					if ($goods_info['sumweight'] <= $shipping_info['first_weight'])
+					{
+						$shipping_fee = $shipping_info['first_price'];
+					}else{
+						$shipping_fee = $shipping_info['first_price'] + ceil(($goods_info['sumweight'] - $shipping_info['first_weight']) /$shipping_info['step_weight']) * $shipping_info['step_price'];
+					}
 
         return array(
             'consignee'     =>  $consignee_info['consignee'],

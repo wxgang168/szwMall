@@ -46,13 +46,27 @@ class ShippingApp extends BackendApp
             'order' => "$sort $order",
             'count' => true,
         ));
-/*        foreach ($shippings as $key => $val)
+
+		$shippingsetting = $this->_get_shippings();
+			$this->assign('expresses',$shippingsetting['expresses']);
+
+        foreach ($shippings as $key => $val)
         {
-            if ($val['priv_store_id'] == 0 && $val['privs'] != '')
+            /*if ($val['priv_store_id'] == 0 && $val['privs'] != '')
             {
                 $shippings[$key]['if_admin'] = true;
             }
-        }*/
+			*/
+			if ($val['first_weight'] !=0)
+			{
+				$shippings[$key]['first_weight'] = $val['first_weight']/1000;
+			}
+			if ($val['step_weight'] !=0)
+			{
+				$shippings[$key]['step_weight'] = $val['step_weight']/1000;
+			}
+			$shippings[$key]['express_desc'] = $shippingsetting['expresses'][$val['express_id']];
+        }
         $this->assign('shippings', $shippings);
         $page['item_count'] = $model_shipping->getCount();
         $this->_format_page($page);
@@ -169,6 +183,7 @@ class ShippingApp extends BackendApp
             $cod_regions = unserialize($shipping['cod_regions']);
             !$cod_regions && $cod_regions = array();
 
+			print_r($shipping);
             $this->assign('shipping', $shipping);
             $this->assign('cod_regions', $cod_regions);
             $this->assign('yes_or_no', array(1 => Lang::get('yes'), 0 => Lang::get('no')));

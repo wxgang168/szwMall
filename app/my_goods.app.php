@@ -142,7 +142,7 @@ class My_goodsApp extends StoreadminbaseApp
         if (isset($_GET['sort']) && isset($_GET['order']))
         {
             $sort  = strtolower(trim($_GET['sort']));
-            if (!in_array($sort,array('goods_name','cate_id','brand','price','stock','if_show','recommended','closed')))
+            if (!in_array($sort,array('goods_name','cate_id','brand','price','stock','weight','if_show','recommended','closed')))
             {
                 $sort  = 'goods_id';
                 $order = 'desc';
@@ -326,6 +326,24 @@ class My_goodsApp extends StoreadminbaseApp
                          break;
                  }
              }
+
+             if ($_POST['weight_change'])
+             {
+                 $delta_weight = intval($_POST['weight']); // 库存变化量
+                 switch ($_POST['weight_change'])
+                 {
+                     case 'change_to':
+                         $sql .= "weight = '" . $delta_weight . "'";
+                         break;
+                     case 'inc_by':
+                         $sql .= "weight = weight + '" . $delta_weight . "'";
+                         break;
+                     case 'dec_by':
+                         $sql .= "weight = IF((weight - '" . $delta_weight . "') <0 , 0, weight - '" . $delta_weight . "')";
+                         break;
+                 }
+             }
+
              if ($sql)
              {
                  $this->_spec_mod->edit("goods_id" . db_create_in($ids), $sql);
@@ -349,6 +367,7 @@ class My_goodsApp extends StoreadminbaseApp
                          break;
                  }
              }
+
              if ($sql)
              {
                  $this->_spec_mod->edit("goods_id" . db_create_in($ids), $sql);
@@ -888,7 +907,7 @@ class My_goodsApp extends StoreadminbaseApp
    function save_spec($spec)
    {
         $data = array();
-        if (empty($spec['price']) || empty($spec['stock']))
+        if (empty($spec['price']) || empty($spec['stock']) || empty($spec['weight']))
         {
             return $data;
         }
@@ -899,6 +918,10 @@ class My_goodsApp extends StoreadminbaseApp
         foreach ($spec['stock'] as $key => $val)
         {
             $data[$key]['stock'] = intval($val);
+        }
+		foreach ($spec['weight'] as $key => $val)
+        {
+            $data[$key]['weight'] = intval($val);
         }
         return $data;
    }
@@ -927,13 +950,17 @@ class My_goodsApp extends StoreadminbaseApp
                return;
            }
        }
-       elseif (in_array($column, array('price', 'stock', 'sku')))
+       elseif (in_array($column, array('price', 'stock', 'weight', 'sku')))
        {
            if ($column == 'price')
            {
                $value = $this->_filter_price($value);
            }
            elseif ($column == 'stock')
+           {
+               $value = intval($value);
+           }
+		   elseif ($column == 'weight')
            {
                $value = intval($value);
            }
@@ -1228,6 +1255,7 @@ class My_goodsApp extends StoreadminbaseApp
                                'goods_id' => $goods_id,
                                'price'    => $this->_filter_price($record['price']),
                                'stock'    => intval($record['stock']),
+							   'weight'    => intval($record['weight']),
                         );
                         $spec_name =array();
                     }
@@ -1238,6 +1266,7 @@ class My_goodsApp extends StoreadminbaseApp
                         'goods_id' => $goods_id,
                         'price'       => $this->_filter_price($record['price']),
                         'stock'       => intval($record['stock']),
+						'weight'       => intval($record['weight']),
                     );
                     $spec_name =array();
                 }
@@ -1289,6 +1318,7 @@ class My_goodsApp extends StoreadminbaseApp
             'cid'         => '宝贝类目',
             'price'       => '宝贝价格',
             'stock'       => '宝贝数量',
+			'weight'       =>'宝贝重量',
             'if_show'     => '放入仓库',
             'recommended' => '橱窗推荐',
             'description' => '宝贝描述',
@@ -1487,6 +1517,7 @@ class My_goodsApp extends StoreadminbaseApp
                     case $fields_cols['if_show'] :      $return[$key]['if_show'] = $col == 1 ? 0 : 1; break;
                     case $fields_cols['goods_name'] :   $return[$key]['goods_name'] = $col; break;
                     case $fields_cols['stock'] :        $return[$key]['stock'] = $col; break;
+					case $fields_cols['weight'] :        $return[$key]['weight'] = $col; break;
                     case $fields_cols['price']:         $return[$key]['price'] = $col; break;
                     case $fields_cols['recommended'] :  $return[$key]['recommended'] = $col; break;
                     case $fields_cols['sale_attr'] :    $return[$key]['sale_attr'] = $col; break;
@@ -1498,7 +1529,8 @@ class My_goodsApp extends StoreadminbaseApp
         return $return;
     }
 
-    /* 解析淘宝的销售属性 返回ECMall规格 */
+    /* 解析淘宝的销售属性 返回ECMall规格 */ 
+		//TODO
     function _parse_tabao_prop($cid, $sale_attr, $sale_attr_alias, $goods_id)
     {
         $i = 0; // 规格数量
@@ -1952,6 +1984,7 @@ class My_goodsApp extends StoreadminbaseApp
                 'recommended' => 1,
                 'price' => 1,
                 'stock' => 1,
+				'weight' => 1,
                 'spec_qty' => 0,
                 'spec_name_1' => Lang::get('color'),
                 'spec_name_2' => Lang::get('size'),
@@ -2022,6 +2055,7 @@ class My_goodsApp extends StoreadminbaseApp
                 $specs[intval($_POST['spec_id'])] = array(
                     'price' => $this->_filter_price($_POST['price']),
                     'stock' => intval($_POST['stock']),
+					'weight' => intval($_POST['weight']),
                     'sku'      => trim($_POST['sku']),
                     'spec_id'  => trim($_POST['spec_id']),
                 );
@@ -2042,6 +2076,7 @@ class My_goodsApp extends StoreadminbaseApp
                                 'spec_1' => $spec_1,
                                 'price'  => $this->_filter_price($_POST['price'][$key]),
                                 'stock'  => intval($_POST['stock'][$key]),
+								'weight'  => intval($_POST['weight'][$key]),
                                 'sku'       => html_script(trim($_POST['sku'][$key])),
                             );
                         }
@@ -2051,6 +2086,7 @@ class My_goodsApp extends StoreadminbaseApp
                                 'spec_1' => $spec_1,
                                 'price'  => $this->_filter_price($_POST['price'][$key]),
                                 'stock'  => intval($_POST['stock'][$key]),
+								'weight'  => intval($_POST['weight'][$key]),
                                 'sku'       => html_script(trim($_POST['sku'][$key])),
                             );
                         }
@@ -2075,6 +2111,7 @@ class My_goodsApp extends StoreadminbaseApp
                                 'spec_2'    => $spec_2,
                                 'price'     => $this->_filter_price($_POST['price'][$key]),
                                 'stock'     => intval($_POST['stock'][$key]),
+								'weight'     => intval($_POST['weight'][$key]),
                                 'sku'       => html_script(trim($_POST['sku'][$key])),
                             );
                         }
@@ -2085,6 +2122,7 @@ class My_goodsApp extends StoreadminbaseApp
                                 'spec_2'    => $spec_2,
                                 'price'     => $this->_filter_price($_POST['price'][$key]),
                                 'stock'     => intval($_POST['stock'][$key]),
+								'weight'     => intval($_POST['weight'][$key]),
                                 'sku'       => html_script(trim($_POST['sku'][$key])),
                             );
                         }
@@ -2220,10 +2258,12 @@ class My_goodsApp extends StoreadminbaseApp
             }
 
         }
+		print_r($goods_specs);print_r($data['specs']);
         $default_spec = array(); // 初始化默认规格
         foreach ($data['specs'] as $key => $spec)
         {
-            if ($spec_id = $spec['spec_id']) // 更新已有规格ID
+            $spec_id = $spec['spec_id'];
+			if ($spec_id && in_array($spec_id,array_keys($goods_specs))) // 更新已有规格ID
             {
                 $this->_spec_mod->edit($spec_id,$spec);
             }
@@ -2234,7 +2274,7 @@ class My_goodsApp extends StoreadminbaseApp
             }
             if (empty($default_spec))
             {
-                $default_spec = array('default_spec' => $spec_id, 'price' => $spec['price']);
+                $default_spec = array('default_spec' => $spec_id, 'price' => $spec['price'], 'weight' => $spec['weight']);
             }
         }
 

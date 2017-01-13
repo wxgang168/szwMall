@@ -78,6 +78,9 @@ $(function(){
             stock      : {
                 digits    : true
             },
+			weight      : {
+                digits    : true
+            },
             cate_id    : {
                 remote   : {
                     url  : 'index.php?app=my_goods&act=check_mgcate',
@@ -101,6 +104,9 @@ $(function(){
             },
             stock       : {
                 digits  : '{$lang.number_only}'
+            },
+			weight      : {
+                digits    : '{$lang.number_only}'
             },
             cate_id     : {
                 remote  : '{$lang.select_leaf_category}'
@@ -137,6 +143,7 @@ $(function(){
                                     <li><input col="spec_name_2" type="text" class="text width4" /></li>
                                     <li class="distance1">{$lang.price}</li>
                                     <li class="distance1">{$lang.stock}</li>
+									<li class="distance1">{$lang.weight}</li>
                                     <li class="distance2">{$lang.sku}</li>
                                     <li class="distance3">{$lang.handle}</li>
                                 </ul>
@@ -145,6 +152,7 @@ $(function(){
                                     <li><input item="spec_2" type="text" class="text width4" /></li>
                                     <li><input item="price" type="text" class="text width4" /></li>
                                     <li><input item="stock" type="text" class="text width4" /></li>
+									<li><input item="weight" type="text" class="text width4" /></li>
                                     <li><input item="sku" type="text" class="text width8" /><input item="spec_id" type="hidden" /></li>
                                     <li class="padding3">
                                         <span ectype="up_spec_item" class="up_btn"></span>
@@ -306,6 +314,10 @@ $(function(){
                                         <h2>{$lang.stock}: </h2>
                                         <div class="arrange"><input name="stock" value="{$goods._specs.0.stock}" type="text" class="text width_short" /></div>
                                     </li>
+									<li ectype="no_spec">
+                                        <h2>{$lang.weight}: </h2>
+                                        <div class="arrange"><input name="weight" value="{$goods._specs.0.weight}" type="text" class="text width_short" /></div>
+                                    </li>
                                     <li ectype="no_spec">
                                         <h2>{$lang.sku}: </h2>
                                         <div class="arrange"><input name="sku" value="{$goods._specs.0.sku}" type="text" class="text width_normal" /></div>
@@ -324,6 +336,7 @@ $(function(){
                                                     <th col="spec_name_2">loading..</th>
                                                     <th col="price">{$lang.price}</th>
                                                     <th col="stock">{$lang.stock}</th>
+													<th col="weight">{$lang.weight}</th>
                                                     <th col="sku">{$lang.sku}</th>
                                                 </tr>
                                                 <tr ectype="spec_item" style="display:none">
@@ -331,6 +344,7 @@ $(function(){
                                                     <td item="spec_2"></td>
                                                     <td item="price"></td>
                                                     <td item="stock"></td>
+													<td item="weight"></td>
                                                     <td item="sku"></td>
                                                 </tr>
                                             </table>

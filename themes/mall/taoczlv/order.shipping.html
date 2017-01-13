@@ -7,6 +7,9 @@
                 var addresses = {$addresses};
                 var goods_amount = {$goods_info.amount};
                 var goods_quantity = {$goods_info.quantity};
+				var goods_sumweight = {$goods_info.sumweight};
+				
+				//alert(goods_sumweight+"----"+goods_amount+"---"+goods_quantity);
                 $(function(){
                     regionInit("region");
                     $('#order_form').validate({
@@ -95,7 +98,19 @@
                     var shipping_data = shippings[shipping_id];
                     var first_price   = Number(shipping_data['first_price']);
                     var step_price   = Number(shipping_data['step_price']);
-                    return first_price + (goods_quantity - 1) * step_price;
+
+					var first_weight   = Number(shipping_data['first_weight']);
+                    var step_weight   = Number(shipping_data['step_weight']);
+
+					var sumprice = 0;
+					if (goods_sumweight <= first_weight)
+					{
+						sumprice = first_price;
+					}else{
+						sumprice = first_price + Math.ceil((goods_sumweight - first_weight) /step_weight) * step_price;
+					}
+					//alert(goods_sumweight +"-----first_weight:"+first_weight+"-----step_weight:"+step_weight+"-----first_price:"+first_price+"-----step_price:"+step_price );
+                    return sumprice;
                 }
                 function check_phone(){
                     return ($('#phone_tel').val() == '' && $('#phone_mob').val() == '');
