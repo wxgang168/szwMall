@@ -333,6 +333,34 @@ class BaseOrder extends Object
         );
     }
 
+	function _match_shipping($shippings,$region_id){
+		$match_shipid = 0;
+		$match_regid = 0;
+		$is_last = false;
+
+		foreach ($shippings as $s_id => $s_data){
+		  $cod_region_ids = $s_data['cod_region_allids'];
+		  if (!$is_last && !empty($cod_region_ids))
+		  {
+			  foreach ($cod_region_ids as $parent_regid => $child_ids){
+				  foreach ($child_ids as $id => $c_regid){
+					  if ($c_regid == $region_id)
+					  {
+						  $match_shipid = $s_id;
+						  $match_regid = $c_regid;
+						  $is_last = true;
+					  }
+				  }
+			  }
+		  }
+		  if (!$is_last)
+		  {
+			  $match_shipid = $s_id;
+		  }
+		}
+		return $match_shipid;
+	}
+
     /**
      *    处理收货人信息，返回有效的收货人信息
      *
@@ -349,8 +377,44 @@ class BaseOrder extends Object
         {
             return false;
         }
-		//print_r(array($consignee_info,$goods_info));
+		
+		/* 配送方式 */
+        $shipping_methods   = $this->_get_shipping_methods(0);//TODO $store_id update by wxgang
 
+        if (empty($shipping_methods))
+        {
+            $this->_error('no_shipping_methods');
+            return false;
+        }
+		$model_region =& m('region');
+		foreach ($shipping_methods as &$shipping)
+        {
+			$shipping['cod_regions'] = unserialize($shipping['cod_regions']);
+			$shipping['cod_region_allids'] = array();
+
+			foreach ($shipping['cod_regions'] as  $cod_region_id => $cod_region_value){
+				$descendant_region_ids = $model_region->get_descendant($cod_region_id);
+				$shipping['cod_region_allids'][$cod_region_id] = $descendant_region_ids;
+			}
+        }
+
+		$shipping_id = $this->_match_shipping($shipping_methods,$consignee_info['region_id']);
+		//$this->_error('no_shipping_methods'.$shipping_id);
+        //return false;
+		if (empty($shipping_id))
+        {
+            $this->_error('no_shipping_methods');
+            return false;
+        }
+
+		if ($consignee_info['shipping_id'] != $shipping_id)
+        {
+            $this->_error('haker!');
+            return false;
+        }
+
+
+		//print_r(array($consignee_info,$goods_info));
         /* 计算配送费用 */
         $shipping_model =& m('shipping');
         $shipping_info  = $shipping_model->get("shipping_id={$consignee_info['shipping_id']} AND store_id=0 AND enabled=1");//TODO {$goods_info['store_id']}
@@ -364,13 +428,14 @@ class BaseOrder extends Object
 
         /* 配送费用=首件费用＋超出的件数*续件费用 */
         //$shipping_fee = $shipping_info['first_price'] + ($goods_info['quantity'] - 1) * $shipping_info['step_price'];
+
 		$shipping_fee = 0;
-					if ($goods_info['sumweight'] <= $shipping_info['first_weight'])
-					{
-						$shipping_fee = $shipping_info['first_price'];
-					}else{
-						$shipping_fee = $shipping_info['first_price'] + ceil(($goods_info['sumweight'] - $shipping_info['first_weight']) /$shipping_info['step_weight']) * $shipping_info['step_price'];
-					}
+		if ($goods_info['sumweight'] <= $shipping_info['first_weight'])
+		{
+			$shipping_fee = $shipping_info['first_price'];
+		}else{
+			$shipping_fee = $shipping_info['first_price'] + ceil(($goods_info['sumweight'] - $shipping_info['first_weight']) /$shipping_info['step_weight']) * $shipping_info['step_price'];
+		}
 
         return array(
             'consignee'     =>  $consignee_info['consignee'],

@@ -3,6 +3,10 @@
 return array(
     'first_price'  => '首价', // tyioocom 
 	'step_price'  => '续费', // tyioocom 
+
+	'first_weight'  => '首重', // tyioocom 
+	'step_weight'  => '续重', // tyioocom 
+
 	'price_notice' => '若有价格变动（包括运费），请在点击确认订单后，联系卖家修改。卖家修改后，您可以至订单管理中查看、完成支付。',  // tyioocom 
 	'use_coupon' => '使用优惠券',  // tyioocom 
 	'close_coupon' => '不使用优惠券',  // tyioocom 

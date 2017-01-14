@@ -67,6 +67,7 @@ class OrderApp extends ShoppingbaseApp
 
                 return;
             }
+
             $this->_curlocal(
                 LANG::get('create_order')
             );

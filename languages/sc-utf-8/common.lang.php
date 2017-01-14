@@ -1,6 +1,7 @@
 <?php
 
 return array(
+    'kg' => '公斤',
     'goods_props' => '商品属性',
     'groupbuy' => '团购',
     'evaluation' => '评价',

@@ -87,7 +87,7 @@
                     });
 
                     //select first
-                    $($('ul[shipping_id]')[0]).click();
+                    //$($('ul[shipping_id]')[0]).click();
                 });
                 function set_order_amount(shipping_id){
                     var _shipping_fee = get_shipping_fee(shipping_id);
@@ -118,7 +118,8 @@
                 function hide_error(){
                     $('#region').find('.error').hide();
                 }
-                </script>
+</script>
+
 <script type="text/javascript">
                 //<![CDATA[
                 $(function(){
@@ -128,9 +129,11 @@
                         $('.address_item').removeClass('selected_address');
                         $(this).addClass('selected_address');
                         set_address();
+						display_shipping();
                     });
                     //init
-                    set_address();
+                    //set_address();
+					$($("input[name='address_options']")[0]).click();
                 });
                 function set_address(){
                     var addr_id = $("input[name='address_options']:checked").val();
@@ -156,7 +159,76 @@
                         fill_address_form(addr_id);
                     }
                 }
-                function fill_address_form(addr_id){
+                function display_shipping(){
+					var addr_id = $("input[name='address_options']:checked").val();
+					if(addr_id == 0)
+                    {
+						var region_id = $('#region_id').val();
+						var region_name = $('#region_name').val();
+						if(!region_id || !region_name){
+							return;
+						}
+                    }
+                    else
+                    {
+                        var addr_data = addresses[addr_id];
+						var region_id = addr_data['region_id'];
+                    }
+
+					var shipping_id = match_shipping(region_id);
+					$('ul[shipping_id]').each(function(){
+						if ($(this).attr('shipping_id') == shipping_id)
+						{
+							$(this).show();
+							$(this).click();
+						}else{
+							$(this).hide();
+						}
+					})
+
+                }
+				
+				var regionChangeUser  =  function (){
+					//console.log("regionChangeUser-------");
+					display_shipping()
+				}
+				
+				function match_shipping(region_id){
+					//console.log("region_id-----"+region_id);
+					var match_shipid = 0;
+					var match_regid = 0;
+					var  is_last = false;
+					$.each( shippings, function(s_id, s_data){
+					  var cod_region_ids = s_data['cod_region_allids'];
+					  //console.log(JSON.stringify(cod_region_ids));
+					  if (!is_last && (JSON.stringify(cod_region_ids) != "{}" || JSON.stringify(cod_region_ids) != "[]"))
+					  {
+						  $.each( cod_region_ids, function(parent_regid, child_ids){
+							  var all_c_regids = cod_region_ids[parent_regid];
+							  
+							  $.each( all_c_regids, function(id, c_regid){
+								  //console.log(c_regid +"--------"+ region_id);
+								  if (c_regid == region_id)
+								  {
+									  match_shipid = s_id;
+									  match_regid = c_regid;
+									  //console.log("if-----"+match_shipid);
+									  is_last = true;
+								  }
+							  });
+						  });
+					  }
+					  if (!is_last)
+					  {
+						  match_shipid = s_id;
+						  //console.log("else-----"+match_shipid);
+					  }
+					});
+					console.log("match_shipid-----"+match_shipid);
+					return match_shipid;
+                }
+
+				function fill_address_form(addr_id){
                     var addr_data = addresses[addr_id];
                     for(k in addr_data){
                         switch(k){
@@ -179,7 +251,8 @@
                     }
                 }
                 //]]>
-              </script>
+</script>
+
 <div id="select-address" class="w mt20">
    <div class="title w mb10">
       <b class="fs14">{$lang.consignee_address}</b>
@@ -251,7 +324,10 @@
 	      <input class="mb5" type="radio" name="shipping_id" value="{$shipping_method.shipping_id}" />  
 	      {$shipping_method.shipping_name|escape}
 	      {$lang.shipping_fee}{$lang.colon}<span class="money" ectype="shipping_fee">&yen; 0.00</span>
-		  {$lang.first_price}{$lang.colon}{$shipping_method.first_price}{$lang.step_price}{$lang.colon}{$shipping_method.step_price}
+		  {$lang.first_weight}{$lang.colon}{$shipping_method.first_weight_kg}{$lang.kg} 
+		  {$lang.first_price}{$lang.colon}{$shipping_method.first_price} 
+		  {$lang.step_weight}{$lang.colon}{$shipping_method.step_weight_kg}{$lang.kg} 
+		  {$lang.step_price}{$lang.colon}{$shipping_method.step_price} 
 	      {$shipping_method.shipping_desc|escape}
 	   </li>
        </ul>

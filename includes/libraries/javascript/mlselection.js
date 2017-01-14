@@ -56,6 +56,15 @@ function regionChange()
             }
         });
     }
+	try{
+		if(regionChangeUser && typeof(regionChangeUser)=="function"){
+			regionChangeUser();
+		}else{
+			console.log("不存在的函数");
+		}
+	}catch(e){
+		
+	}
 }
 
 function regionEdit()

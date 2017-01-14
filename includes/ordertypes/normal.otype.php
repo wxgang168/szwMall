@@ -48,7 +48,9 @@ class NormalOrder extends BaseOrder
     /* 显示订单表单 */
     function get_order_form($store_id)
     {
-        $data = array();
+        $model_region =& m('region');
+        
+		$data = array();
         $template = 'order.form.html';
 
         $visitor =& env('visitor');
@@ -57,7 +59,7 @@ class NormalOrder extends BaseOrder
         $data['my_address']         = $this->_get_my_address($visitor->get('user_id'));
         $data['addresses']          =   ecm_json_encode($data['my_address']);
         $data['regions']            = $this->_get_regions();
-
+		
         /* 配送方式 */
         $data['shipping_methods']   = $this->_get_shipping_methods(0);//TODO $store_id update by wxgang
         if (empty($data['shipping_methods']))
@@ -66,11 +68,21 @@ class NormalOrder extends BaseOrder
 
             return false;
         }
-        $data['shippings']          = ecm_json_encode($data['shipping_methods']);
-        foreach ($data['shipping_methods'] as $shipping)
+		foreach ($data['shipping_methods'] as &$shipping)
         {
             $data['shipping_options'][$shipping['shipping_id']] = $shipping['shipping_name'];
+			$shipping['first_weight_kg'] = $shipping['first_weight']/1000;
+			$shipping['step_weight_kg'] = $shipping['step_weight']/1000;
+			$shipping['cod_regions'] = unserialize($shipping['cod_regions']);
+			$shipping['cod_region_allids'] = array();
+
+			foreach ($shipping['cod_regions'] as  $cod_region_id => $cod_region_value){
+				$descendant_region_ids = $model_region->get_descendant($cod_region_id);
+				$shipping['cod_region_allids'][$cod_region_id] = $descendant_region_ids;
+			}
         }
+
+        $data['shippings']          = ecm_json_encode($data['shipping_methods']);
 
         return array('data' => $data, 'template' => $template);
     }
