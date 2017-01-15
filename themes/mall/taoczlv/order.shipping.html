@@ -79,6 +79,7 @@
                     $('ul[shipping_id]').each(function(){
                         var _shipping_fee = get_shipping_fee($(this).attr('shipping_id'));
                         $(this).find('[ectype="shipping_fee"]').html(price_format(_shipping_fee));
+						$(this).hide();
                     }).click(function(){
                         $(this).find('input[name="shipping_id"]').attr('checked', true);
 						$('.shipping_item').removeClass('selected');
@@ -201,7 +202,7 @@
 					$.each( shippings, function(s_id, s_data){
 					  var cod_region_ids = s_data['cod_region_allids'];
 					  //console.log(JSON.stringify(cod_region_ids));
-					  if (!is_last && (JSON.stringify(cod_region_ids) != "{}" || JSON.stringify(cod_region_ids) != "[]"))
+					  if (!is_last && (JSON.stringify(cod_region_ids) != '{}') && (JSON.stringify(cod_region_ids) != '[]') && (cod_region_ids.length !== 0))
 					  {
 						  $.each( cod_region_ids, function(parent_regid, child_ids){
 							  var all_c_regids = cod_region_ids[parent_regid];

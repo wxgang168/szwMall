@@ -127,10 +127,9 @@ class ShippingApp extends BackendApp
                 'enabled'       => $_POST['enabled'],
                 'sort_order'    => $_POST['sort_order'],
             );
-            if (!empty($_POST['cod_region_assign']) && !empty($_POST['cod_regions']))
-            {
-                $data['cod_regions']    =   serialize($_POST['cod_regions']);
-            }
+			$data['cod_regions'] = (empty($_POST['cod_region_assign']) || empty($_POST['cod_regions'])) ? array() : $_POST['cod_regions'];
+			$data['cod_regions']    =   serialize($_POST['cod_regions']);
+
             $model_shipping =& m('shipping');
             if (!($shipping_id = $model_shipping->add($data)))
             {
@@ -183,7 +182,7 @@ class ShippingApp extends BackendApp
             $cod_regions = unserialize($shipping['cod_regions']);
             !$cod_regions && $cod_regions = array();
 
-			print_r($shipping);
+			
             $this->assign('shipping', $shipping);
             $this->assign('cod_regions', $cod_regions);
             $this->assign('yes_or_no', array(1 => Lang::get('yes'), 0 => Lang::get('no')));
