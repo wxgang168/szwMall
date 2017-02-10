@@ -18,9 +18,15 @@
 
 
 
-
-
-
+ /* 页面路径
+  * \themes\mall\taoczlv\szw_lvyoujingdian.index.html
+  * \themes\mall\taoczlv\szw_nongzhuangcaizhai.index.html
+  * 自定义页面样式，农庄采摘、旅游景点页面样式。
+  */
+#page_name {text-align:center; font-size:14px; color:#09F;}
+#page_building_01,#page_building_02{margin:10px auto;width:970px;height:620px;}
+#page_building_01{background:url(../images/building_01.jpg);background-repeat: no-repeat;background-position:center;}
+#page_building_02{background:url(../images/building_02.jpg);background-repeat: no-repeat;background-position:center;}
 
 
 
