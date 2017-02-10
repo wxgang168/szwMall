@@ -880,13 +880,13 @@ class MemberbaseApp extends MallbaseApp
         }
         if ($this->visitor->get('manage_store'))
         {
-			
+			/* 
 			$menu['my_ecmall']['submenu']['msg'] = array(
                     'text'  => Lang::get('msg'),
                     'url'   => 'index.php?app=msg',
                     'name'  => 'msg',
                     'icon'  => 'ico3',
-                );
+                ); */
             /* 指定了要管理的店铺 */
             $menu['im_seller'] = array(
                 'name'  => 'im_seller',
@@ -900,12 +900,12 @@ class MemberbaseApp extends MallbaseApp
                     'name'  => 'my_goods',
                     'icon'  => 'ico8',
             );
-            $menu['im_seller']['submenu']['groupbuy_manage'] = array(
+            /* $menu['im_seller']['submenu']['groupbuy_manage'] = array(
                     'text'  => Lang::get('groupbuy_manage'),
                     'url'   => 'index.php?app=seller_groupbuy',
                     'name'  => 'groupbuy_manage',
                     'icon'  => 'ico22',
-            );
+            ); */
             $menu['im_seller']['submenu']['my_qa'] = array(
                     'text'  => Lang::get('my_qa'),
                     'url'   => 'index.php?app=my_qa',
@@ -944,12 +944,12 @@ class MemberbaseApp extends MallbaseApp
                     'icon'  => 'ico13',
             );
             */
-            $menu['im_seller']['submenu']['my_shipping'] = array(
+            /* $menu['im_seller']['submenu']['my_shipping'] = array(
                     'text'  => Lang::get('my_shipping'),
                     'url'   => 'index.php?app=my_shipping',
                     'name'  => 'my_shipping',
                     'icon'  => 'ico14',
-            );
+            ); */
             $menu['im_seller']['submenu']['my_navigation'] = array(
                     'text'  => Lang::get('my_navigation'),
                     'url'   => 'index.php?app=my_navigation',
@@ -968,6 +968,7 @@ class MemberbaseApp extends MallbaseApp
                     'name'  => 'coupon',
                     'icon'  => 'ico19',
             );
+            /* 
             $menu['im_seller']['submenu']['my_waptheme']  = array(
                     'text'  => Lang::get('my_waptheme'),
                     'url'   => 'index.php?app=my_waptheme',
@@ -1000,13 +1001,14 @@ class MemberbaseApp extends MallbaseApp
                     'icon'  => 'ico14',
             );
             
-            
+             */
             
             
             
             
             
         /* 卖家微信管理 */
+        /*     
         $menu['im_wx'] = array(
             'name'  => 'im_wx',
             'text'  => Lang::get('im_wx'),
@@ -1043,7 +1045,7 @@ class MemberbaseApp extends MallbaseApp
                     'icon'  => 'ico7',
                 ),
             ),
-        );
+        ); */
             
             
         }
