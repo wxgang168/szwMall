@@ -15,7 +15,7 @@ include(ROOT_PATH . '/app/common.php');
 
 /* 定义配置信息 */
 ecm_define(ROOT_PATH . '/data/config.inc.php');
-
+/* 
 $ua = strtolower($_SERVER['HTTP_USER_AGENT']);
 $uachar = "/(nokia|sony|ericsson|mot|samsung|sgh|lg|philips|panasonic|alcatel|lenovo|cldc|midp|mobile|android)/i";
 
@@ -23,6 +23,7 @@ if((preg_match($uachar, $ua)))
 {
     define('ECMALL_WAP', 1);
 }
+ */
 if ($_GET['Debug'] == 'Wap') {
     define('ECMALL_WAP', 1);
 }
