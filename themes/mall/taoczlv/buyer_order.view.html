@@ -15,10 +15,10 @@
                 <dd>{$lang.store_name}&nbsp;:&nbsp;{$order.store_name|escape}</dd>
                 <dd>{$lang.phone_tel}&nbsp;:&nbsp;{$order.tel|escape|default:-}</dd>
                 <dd>{$lang.qq}&nbsp;:&nbsp;{$order.im_qq|escape|default:-}</dd>
-                <dd>{$lang.ww}&nbsp;:&nbsp;{$order.im_ww|escape|default:-}</dd>
                 <dd>{$lang.region}&nbsp;:&nbsp;{$order.region_name|escape|default:-}</dd>
                 <dd>{$lang.phone_mob}&nbsp;:&nbsp;{$order.phone_mob|escape|default:-}</dd>
-                <dd>{$lang.msn}&nbsp;:&nbsp;{$order.im_msn|escape|default:-}</dd>
+                <dd>{$lang.ww}&nbsp;:&nbsp;{$order.im_ww|escape|default:-}</dd>
+                <!--dd>{$lang.msn}&nbsp;:&nbsp;{$order.im_msn|escape|default:-}</dd-->
                 <dd>{$lang.address}&nbsp;:&nbsp;{$order.address|escape|default:-}</dd>
             </dl>
             <div class="ware_line">
@@ -76,8 +76,10 @@
                 <br />
                 {$lang.postscript}&nbsp;:&nbsp;{$order.postscript|escape}<br />
                 <!--{/if}-->
+                
             </div>
-
+				<!--此处物增加流跟踪信息，薛蔚备注-->
+                
             <div class="particular_bottom"></div>
         </div>
 

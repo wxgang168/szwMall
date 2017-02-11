@@ -993,7 +993,7 @@ select{border:1px solid #A7A6AA; height:22px;padding:1px; line-height:22px;margi
 
 .particular .info { width: 908px; padding: 10px; overflow: hidden; line-height: 20px; }
 .particular .info dt { font-weight: bold; color: #3e3e3e; }
-.particular .info dd { float: left; width: 200px; color: #656565; }
+.particular .info dd { float: left; width: 300px; color: #656565; }
 
 .particular .ware_line { width: 928px; border-top: 2px solid #efefef; border-bottom: 2px solid #efefef; padding: 1px 0; margin-bottom: 20px; }
 .particular .ware { border-top: 1px solid #efefef; border-bottom: 1px solid #efefef; }
