@@ -180,6 +180,8 @@ class CashierApp extends ShoppingbaseApp
             header('Content-Type:text/html;charset=' . CHARSET);
             if ($order_info['payment_code'] == 'wxpayv3') {
             	$this->display('cashier.payform_wx.html');
+            }elseif ($order_info['payment_code'] == 'alipay') {
+            	$this->display('cashier.payform.html');
             }else{
             	$this->display('cashier.payform.html');
             }

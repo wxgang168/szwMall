@@ -116,14 +116,26 @@ $(function(){
         <td class="paddingT15 wordSpacing5"><input type="text" class="text" name="invoice_no" id="invoice_no_input" style="width:195px;" value="{$order.invoice_no}" class="search250" />
         </td>
       </tr>
-
+      <tr>
+		<th class="paddingT15">
+			<label for="parent_id">{$lang.express}:</label></th>
+		<td class="paddingT15 wordSpacing5">
+			<select id="express_id" name="express_id">
+			<option value="0">{$lang.select_pls}</option>
+			{html_options options=$expresses selected=$order.express_id}</select>
+		</td>
+	  </tr>
+	  <tr>
+        <th class="paddingT15"> {$lang.express_amount}:</th>
+        <td class="paddingT15 wordSpacing5"><input type="text" class="text" name="express_amount" id="express_amount" style="width:195px;" value="{$order.express_amount}" class="search250" />
+        </td>
+      </tr>
       <tr>
         <th class="paddingT15"> {$lang.operate_reason}:</th>
         <td class="paddingT15 wordSpacing5">
             <textarea id="remark_input" class="text" style="width:200px;" name="remark"></textarea>
         </td>
       </tr>
-
       <tr>
         <th></th>
         <td class="ptb20"><input class="formbtn" type="submit" name="Submit" value="{$lang.submit}" />

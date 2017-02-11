@@ -1,36 +1,14 @@
-<!--{if $payment.payment_code  eq  'wxpayv3' }-->
-  {include file="header.html"}
-<style type="text/css">
-.mall-nav{ display:none}
-</style>
-<div id="main" class="w-full">
-<div id="page-cashier" class="w">
-   {include file="curlocal.html"}
-   <div class="order-form payform clearfix border mt10 mb20">
-      <div class="detail padding10">
-      
-      		<div class="weixinzhifu">
-            <div class="title padding5 strong">{$lang.payment_desc}</div>
-            	<ul class="order">
-                	<li class="left">{$lang.order_sn}&nbsp;:&nbsp;{$order.order_sn}</li>
-                    <li class="right">{$lang.order_amount}&nbsp;:&nbsp;<span>{$order.order_amount}</span></li>
-                </ul>
-                <ul>
-                    <li>{$lang.payment_name}&nbsp;:&nbsp;{$order.payment_name}</li>
-                    <li class="center">{$payform}</li>
-
-                </ul>
-            </div>
-
-      </div>
-    </div>
-</div>
-</div>
-{include file=server.html}
-{include file="footer.html"}
-
-
-<!--{else} -->
+<!--{if $payform.online}-->
+  <h3>{$lang.connecting_pay_gateway}</h3>
+  <form action="{$payform.gateway}" id="payform" method="{$payform.method}" style="display:none">
+  <!-- {foreach from=$payform.params item=value key=_k} -->
+    <input type="hidden" name="{$_k}" value="{$value}" />
+  <!-- {/foreach} -->
+  </form>
+  <script type="text/javascript">
+      document.getElementById('payform').submit();
+  </script>
+{else}
 {include file="header.html"}
 <style type="text/css">
 .mall-nav{ display:none}

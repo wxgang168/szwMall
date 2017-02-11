@@ -81,6 +81,8 @@ return array(
     'operate_reason'          => '操作原因',
 	'ok'					=> '操作成功',
 	'edit_again'			=> '再次修改',
+    'express'           => '快递公司',
+    'express_amount'        => '快递费',
 	
     
 );

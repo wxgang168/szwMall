@@ -48,7 +48,7 @@ class ShippingApp extends BackendApp
         ));
 
 		$shippingsetting = $this->_get_shippings();
-			$this->assign('expresses',$shippingsetting['expresses']);
+		$this->assign('expresses',$shippingsetting['expresses']);
 
         foreach ($shippings as $key => $val)
         {

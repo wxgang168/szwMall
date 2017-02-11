@@ -10,8 +10,8 @@
 class AlipayPayment extends BasePayment
 {
     /* 支付宝网关 */
-    var $_gateway   =   'https://www.alipay.com/cooperate/gateway.do';
-    //var $_gateway   =   'https://mapi.alipay.com/gateway.do';
+    //var $_gateway   =   'https://www.alipay.com/cooperate/gateway.do';
+    var $_gateway   =   'https://mapi.alipay.com/gateway.do';
     var $_code      =   'alipay';
 
     /**

@@ -397,6 +397,8 @@ class OrderApp extends BackendApp
         $model_order    =&  m('order');
         if (!IS_POST)
         {
+            $shippingsetting = $this->_get_shippings();
+            $this->assign('expresses',$shippingsetting['expresses']);
             /* 显示发货表单 */
             header('Content-Type:text/html;charset=' . CHARSET);
             $this->assign('order', $order_info);
@@ -410,7 +412,7 @@ class OrderApp extends BackendApp
 
                 return;
             }
-            $edit_data = array('status' => ORDER_SHIPPED, 'invoice_no' => $_POST['invoice_no']);
+            $edit_data = array('status' => ORDER_SHIPPED, 'invoice_no' => $_POST['invoice_no'], 'express_id' => $_POST['express_id'], 'express_amount' => $_POST['express_amount']);
             $is_edit = true;
             if (empty($order_info['invoice_no']))
             {
@@ -762,6 +764,11 @@ class OrderApp extends BackendApp
 
         return array($order_id, $order_info);
     }
-
+    function _get_shippings()
+    {
+        $shipping = include(APP_ROOT . '/../data/shipping.inc.php');
+    
+        return $shipping;
+    }
 }
 ?>
