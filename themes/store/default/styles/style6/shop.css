@@ -381,9 +381,9 @@ ul, ol { list-style-type:none; }
 
 .ware_btn { width: 380px; margin-top: 20px; position: relative; }
 .ware_btn li { float: left; margin-right: 20px; cursor: pointer; }
-.btn_c1 a { display: block; width: 144px; height: 56px; background: url(images/btn.gif) 0 -268px; }
-.btn_c2 a { display: block; width: 144px; height: 56px; background: url(images/btn.gif) 0 -340px; }
-.btn_c3 a { display: block; width: 144px; height: 56px; background: url(images/style2.gif); }
+.btn_c1 a { display: block; width: 149px; height: 56px; background: url(images/btn.gif) 0 -268px; }
+.btn_c2 a { display: block; width: 149px; height: 56px; background: url(images/btn.gif) 0 -340px; }
+.btn_c3 a { display: block; width: 149px; height: 56px; background: url(images/style2.gif); }
 
 .ware_cen { width: 333px; height: 129px; position: absolute; top: 40px; left: 0px; display: none-; }
 .ware_center { width: 316px; height: 112px; padding: 7px 4px 0; position: absolute; top: 0; left: 0; z-index: 2; background: #fff; border: 3px solid #dadada; }
