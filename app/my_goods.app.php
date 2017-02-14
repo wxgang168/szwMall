@@ -2258,7 +2258,7 @@ class My_goodsApp extends StoreadminbaseApp
             }
 
         }
-		print_r($goods_specs);print_r($data['specs']);
+		//print_r($goods_specs);print_r($data['specs']);
         $default_spec = array(); // 初始化默认规格
         foreach ($data['specs'] as $key => $spec)
         {
