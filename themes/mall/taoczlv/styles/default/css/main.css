@@ -239,7 +239,7 @@ background:url(../images/Bg630.png) no-repeat  -280px -340px;
 .re_goods .title b{display:block;background: url(../images/new_index2.png) no-repeat 0px -33px;_background: url(../images/new_index2.gif) no-repeat 0px -33px;width: 40px;height: 35px;margin-left: 10px;float:left;margin-top:2px;}
 .re_goods .title span{display:block;float:left;height:39px;line-height: 43px;}
 .re_goods .content{border: 1px #d0d0d0 solid;width:1198px;}
-.re_goods .content dl{float:left;width:179px;height:230px;padding:10px;border-right:1px dashed #eee;overflow:hidden;color:#999;}
+.re_goods .content dl{float:left;width:179px;height:230px;padding:10px;border-right:1px dashed #eee;overflow:hidden;color:#999; margin-bottom:20px;}
 .re_goods .content dl.item:hover,.re_goods .content .hover{background:#F1F1F1;}
 .re_goods .content dl dt{width:100%;text-align:center;}
 .re_goods .content dl dt img{background:#fff;}
@@ -283,8 +283,8 @@ font-size: 16px;}
 
 /*floor-widget*/
 /*导航*/
-.floor .title h1{float:left;background-color: #00A13A;width:90px;height:35px;line-height:35px;text-align:center;color: #FFFFFF;
-font-family: Microsoft YaHei,宋体;font-size: 16px;font-weight: normal;}
+.floor .title h1{float:left;background-color: #00A13A;width:90px;height:46px;line-height:46px;text-align:center;color: #FFFFFF;
+font-family: Microsoft YaHei,宋体;font-size:18px;font-weight:bold;}
 .floor .title .right{float:right;width:1100px;border-bottom: 3px solid #E9E9E9;height: 32px;}
 .floor .title .right .keyword{float:right;}
 .floor .title .right .keyword h2{height:32px;background-color: #68B92E;float:right;}

@@ -16,7 +16,7 @@ a{text-decoration:none;blr:expression(this.onFocus=this.blur());outline:none}
 .w-mall,.w,.w-shop,.w-user{margin:0 auto;}
 .col-sub,.col-main{float:left;}
 .col-bottom{ clear:both}
-.clearfix:after{ content:'\20'; display:block; overflow:hidden; height:0; clear:both;}
+.clearfix:after{ content:'\20'; display:block; overflow:hidden; height:0; clear:both; background-color:#68b92e;}
 .clearboth{ clear:both;}
 .hidden{ display:none}
 .overflowHidden{ overflow:hidden;}
