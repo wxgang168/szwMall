@@ -81,7 +81,6 @@
 #header .allcategory-list .item:hover .line,
 #header .allcategory-list .hover .line{height:32px;}
 
-
 .allcategory-list{border:3px solid #68B92E;border-top:0;width:194px;background:#fff; text-align:left;color:#404040; z-index:100;}
 .allcategory-list .item{float:left;line-height:20px; position:relative; z-index:99;width:194px ;background:#fff;}
 .allcategory-list .item .shadow{display:none;}
@@ -113,9 +112,7 @@
 .allcategory-list .catbrand h2{font-size:12px;font-weight:bold;margin-bottom:5px;color:#5E5E5E}
 
 /* if is text */
-.allcategory-list .catbrand li{padding-right:8px;width:60px;margin-top:5px;}
-.allcategory-list .catbrand li a{color:#333}
-.allcategory-list .catbrand li a:hover{ text-decoration:underline}
+
 /* if is image
 .allcategory-list .catbrand li{margin-right:8px;width:92px;height:42px;margin-top:5px;}
 .allcategory-list .catbrand ul a{ display:block;width:90px; height:40px;border:1px #ddd solid;}
