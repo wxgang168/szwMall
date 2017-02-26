@@ -24,7 +24,7 @@ class Taocz_gcategory_listWidget extends BaseWidget
 			$init = new Init_FrontendApp();
 	
 			/* position: 给弹出层设置高度，使得页面效果美观 */
-			$position = array('0px','-37px','-74px','0px','0px','0px','0px','0px','0px','0px','0px','0px','0px','0px');
+			$position = array('0px','-37px','-74px','-111px','-148px','-185px','-222px','-259px','-296px','-333px','-370px','-740px','-444px','-481px');
 			$data = $init->_get_header_gcategories($amount,$position,1);// 参数说明（二级分类显示数量,弹出层位置,品牌是否为推荐）
 			if($data['gcategories'])
 			{
