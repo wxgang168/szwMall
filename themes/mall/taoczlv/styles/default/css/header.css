@@ -61,26 +61,25 @@
 
 
 
-
+/* zxxw:薛蔚 20170224 */
 
 /* mall-nav */
-.mall-nav{background:#00A13A;height:36px;}
+.mall-nav{background:#00A13A;height:46px;}/* height:36px; */
 .mall-nav ul .each{ position:relative;}
-.mall-nav ul .each a{display:inline-block;width:98px;text-align:center;height:36px;line-height:36px;font-size: 14px;font-weight: bold;color: white;background: url(../images/new_menu_2.jpg) repeat-y right;}
+.mall-nav ul .each a{display:inline-block;width:98px;text-align:center;height:46px;line-height:46px;font-size:16px;font-weight: bold;color: white;background: url(../images/new_menu_2.jpg) repeat-y right;}
 .mall-nav ul .each a.current,.mall-nav ul .each a:hover{background:#68B92E;}
 
 
 /* header and home widget allcategory-list  */
 
 .allcategory{position:relative; z-index:100;}
-.allcategory .allsort{float:left;width:200px;height: 36px;line-height: 36px;font-weight: bold;font-size:14px;color:#fff;display:block;text-align:center;background: #68B92E url(../images/new_index_pic_03.png) right 6px no-repeat;margin-right:1px;}
+.allcategory .allsort{float:left;width:200px;height:46px;line-height:46px;font-weight: bold;font-size:16px;color:#fff;display:block;text-align:center;background: #68B92E url(../images/new_index_pic_03.png) right 6px no-repeat;margin-right:1px;}
 .allcategory .allsort:hover{background: #68B92E url(../images/new_index_pic_04.png) right 6px no-repeat;color:#fff;}
 .allcategory .content{width:100%;}
 
-#header .allcategory-list{position:absolute;left:0;top:36px;}
+#header .allcategory-list{position:absolute;left:0;top:46px;}
 #header .allcategory-list .item:hover .line,
 #header .allcategory-list .hover .line{height:32px;}
-
 
 .allcategory-list{border:3px solid #68B92E;border-top:0;width:194px;background:#fff; text-align:left;color:#404040; z-index:100;}
 .allcategory-list .item{float:left;line-height:20px; position:relative; z-index:99;width:194px ;background:#fff;}
@@ -90,7 +89,7 @@
 .allcategory-list .item:hover p a,.allcategory-list .hover p a{color:#fff !important;text-decoration:none;background:none !important;}
 .allcategory-list .item a{color:#3e3e3e;}
 .allcategory-list .item a:hover{color:#990000;}
-.allcategory-list .item .pop{ display:none}
+.allcategory-list .item .pop{display:none}
 
 .allcategory-list .pop .catlist{width:549px;padding:0px 10px; }
 .allcategory-list .pop dl{width:544px; line-height:22px;padding:5px 0px;border-bottom: 1px solid #efefef;}
@@ -107,15 +106,13 @@
 .allcategory-list .item:hover .pborder,
 .allcategory-list .hover .pborder{border-color:#68B92E;background:none;}
 .allcategory-list .item:hover .pop,
-.allcategory-list .hover .pop{display:block;position:absolute;border:1px #d0d0d0 solid;left:197px;top:0px;width:790px;background: #fff url(../images/new_dh_bg2.png) repeat-y right 0;}
+.allcategory-list .hover .pop{display:block;position:absolute;border:1px #d0d0d0 solid;left:196px;top:0px;width:790px;background: #fff url(../images/new_dh_bg2.png) repeat-y right 0;}
 
 .allcategory-list .catbrand{width:210px;padding:10px 5px;overflow:hidden;float:right;}
 .allcategory-list .catbrand h2{font-size:12px;font-weight:bold;margin-bottom:5px;color:#5E5E5E}
 
 /* if is text */
-.allcategory-list .catbrand li{padding-right:8px;width:60px;margin-top:5px;}
-.allcategory-list .catbrand li a{color:#333}
-.allcategory-list .catbrand li a:hover{ text-decoration:underline}
+
 /* if is image
 .allcategory-list .catbrand li{margin-right:8px;width:92px;height:42px;margin-top:5px;}
 .allcategory-list .catbrand ul a{ display:block;width:90px; height:40px;border:1px #ddd solid;}
