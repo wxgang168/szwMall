@@ -80,6 +80,8 @@ class OrderApp extends BackendApp
             'order'         => "$sort $order",
             'count'         => true             //允许统计
         )); //找出所有商城的合作伙伴
+        
+        
         $page['item_count'] = $model_order->getCount();   //获取统计的数据
         $this->_format_page($page);
         $this->assign('filtered', $conditions? 1 : 0); //是否有查询条件
@@ -98,7 +100,196 @@ class OrderApp extends BackendApp
                                       'style'=> 'jquery.ui/themes/ui-lightness/jquery.ui.css'));
         $this->display('order.index.html');
     }
-
+    
+    
+    
+    /**
+     *    统计
+     *
+     *    @author    Garbin
+     *    @param    none
+     *    @return    void
+     */
+    function totalByseller()//
+    {
+        $conditions = $this->_get_query_conditions(array(array(
+            'field' => 'add_time',
+            'name'  => 'add_time_from',
+            'equal' => '>=',
+            'handler'=> 'gmstr2time',
+        ),array(
+            'field' => 'add_time',
+            'name'  => 'add_time_to',
+            'equal' => '<=',
+            'handler'   => 'gmstr2time_end',
+        )
+        ));
+        
+        $model_order =& m('order');
+       
+        $isCount = true;
+        $index = 0;
+        $item_count = 0;
+        
+        $totalArr = array();
+        do{
+            $begin = $index * 100;
+            $orders = $model_order->find(array(
+                'conditions'    => '1=1  AND status <> 0 ' . $conditions,
+                'limit'         => "$begin,100",  //获取当前页的数据
+                //'join'          => 'has_orderextm',
+                //'order'         => "$sort $order",
+                'count'         => $isCount             //允许统计
+            )); //找出所有商城的合作伙伴
+            //print_r($orders);
+            $index = 0;
+            foreach ($orders as $orderObj){
+                
+                if (!isset($totalArr[$orderObj['seller_id']])) {
+                    $index ++;
+                    $totalArr[$orderObj['seller_id']] = array();
+                    $totalArr[$orderObj['seller_id']]['id'] = $index;
+                    $totalArr[$orderObj['seller_id']]['total_time'] = 0;
+                    $totalArr[$orderObj['seller_id']]['seller_id'] = $orderObj['seller_id'];
+                    $totalArr[$orderObj['seller_id']]['seller_name'] = $orderObj['seller_name'];
+                    $totalArr[$orderObj['seller_id']]['status_0_orderfee'] = 0.00 ;
+                    $totalArr[$orderObj['seller_id']]['status_0_shippingfee'] = 0.00 ;
+                    $totalArr[$orderObj['seller_id']]['status_0_ordersum'] = 0 ;
+                    
+                    $totalArr[$orderObj['seller_id']]['status_1_orderfee'] = 0.00 ;
+                    $totalArr[$orderObj['seller_id']]['status_1_shippingfee'] = 0.00 ;
+                    $totalArr[$orderObj['seller_id']]['status_1_ordersum'] = 0 ;
+                    
+                    
+                    $totalArr[$orderObj['seller_id']]['ordersum'] = 0 ;
+                    $totalArr[$orderObj['seller_id']]['orderfee'] = 0.00 ;
+                    $totalArr[$orderObj['seller_id']]['shippingfee'] = 0.00 ;
+                }
+                $totalArr[$orderObj['seller_id']]['total_time'] = $_GET['add_time_from'] ."-".$_GET['add_time_to'];
+                $orderStatus = ($orderObj['status'] == ORDER_FINISHED) ? 1 : 0 ;
+                $totalArr[$orderObj['seller_id']]['status_'.$orderStatus.'_orderfee'] += $orderObj['goods_amount'] ;
+                $totalArr[$orderObj['seller_id']]['status_'.$orderStatus.'_shippingfee'] += ($orderObj['order_amount'] - $orderObj['goods_amount']) ;
+                $totalArr[$orderObj['seller_id']]['status_'.$orderStatus.'_ordersum'] += 1 ;
+                
+                $totalArr[$orderObj['seller_id']]['orderfee'] += $orderObj['goods_amount'] ;
+                $totalArr[$orderObj['seller_id']]['shippingfee'] += ($orderObj['order_amount'] - $orderObj['goods_amount']) ;
+                $totalArr[$orderObj['seller_id']]['ordersum'] += 1 ;
+                
+            }
+            if ($isCount){
+                $item_count = $model_order->getCount();   //获取统计的数据
+            }
+            $index ++;
+        }while ($item_count > 100 * $index);
+        
+        //print_r($totalArr);
+        //exit;
+        
+        //$page   =   $this->_get_page(count($totalArr));    //获取分页信息
+        
+        //$this->_format_page($page);
+        
+        $this->assign('filtered', $conditions? 1 : 0); //是否有查询条件
+        $this->assign('order_status_list', array(
+            ORDER_PENDING => Lang::get('order_pending'),
+            ORDER_SUBMITTED => Lang::get('order_submitted'),
+            ORDER_ACCEPTED => Lang::get('order_accepted'),
+            ORDER_SHIPPED => Lang::get('order_shipped'),
+            ORDER_FINISHED => Lang::get('order_finished'),
+            ORDER_CANCELED => Lang::get('order_canceled'),
+        ));
+        //$this->assign('search_options', $search_options);
+        //$this->assign('page_info', $page);          //将分页信息传递给视图，用于形成分页条
+        $this->assign('totals', $totalArr);
+        $this->import_resource(array('script' => 'inline_edit.js,jquery.ui/jquery.ui.js,jquery.ui/i18n/' . i18n_code() . '.js',
+            'style'=> 'jquery.ui/themes/ui-lightness/jquery.ui.css'));
+        $this->display('order.totalbyseller.html');
+    }
+    
+    /**
+     *    统计
+     *
+     *    @author    Garbin
+     *    @param    none
+     *    @return    void
+     */
+    function totalByexpress()//
+    {
+        $conditions = $this->_get_query_conditions(array(array(
+            'field' => 'add_time',
+            'name'  => 'add_time_from',
+            'equal' => '>=',
+            'handler'=> 'gmstr2time',
+        ),array(
+            'field' => 'add_time',
+            'name'  => 'add_time_to',
+            'equal' => '<=',
+            'handler'   => 'gmstr2time_end',
+        )
+        ));
+    
+        $model_order =& m('order');
+        
+        $isCount = true;
+        $index = 0;
+        $item_count = 0;
+        
+        $totalArr = array();
+        
+        $shippingsetting = $this->_get_shippings();
+        
+        
+        do{
+            $begin = $index * 100;
+            
+            $orders = $model_order->find(array(
+                'conditions'    => '1=1 ' . $conditions,
+                'limit'         => "$begin,100",  //获取当前页的数据
+                //'join'          => 'has_orderextm',
+                //'order'         => "$sort $order",
+                'count'         => $isCount             //允许统计
+            )); 
+            
+            $index = 0;
+            foreach ($orders as $orderObj){
+    
+                if (!isset($totalArr[$orderObj['express_id']])) {
+                    $index ++;
+                    $totalArr[$orderObj['express_id']] = array();
+                    $totalArr[$orderObj['express_id']]['id'] = $index;
+                    $totalArr[$orderObj['express_id']]['total_time'] = 0;
+                    $totalArr[$orderObj['express_id']]['express_name'] = $shippingsetting['expresses'][$orderObj['express_id']];
+                    
+                    $totalArr[$orderObj['express_id']]['ordersum'] = 0 ;
+                    $totalArr[$orderObj['express_id']]['express_amount'] = 0.00 ;
+                }
+                $totalArr[$orderObj['express_id']]['total_time'] = $_GET['add_time_from'] ."-".$_GET['add_time_to'];
+                $totalArr[$orderObj['express_id']]['expressfee'] += $orderObj['express_amount'] ;
+                $totalArr[$orderObj['express_id']]['ordersum'] += 1 ;
+            }
+            if ($isCount){
+                $item_count = $model_order->getCount();   //获取统计的数据
+            }
+            $index ++;
+        }while ($item_count > 100 * $index);
+    
+        $this->assign('filtered', $conditions? 1 : 0); //是否有查询条件
+        $this->assign('order_status_list', array(
+            ORDER_PENDING => Lang::get('order_pending'),
+            ORDER_SUBMITTED => Lang::get('order_submitted'),
+            ORDER_ACCEPTED => Lang::get('order_accepted'),
+            ORDER_SHIPPED => Lang::get('order_shipped'),
+            ORDER_FINISHED => Lang::get('order_finished'),
+            ORDER_CANCELED => Lang::get('order_canceled'),
+        ));
+        //$this->assign('search_options', $search_options);
+        //$this->assign('page_info', $page);          //将分页信息传递给视图，用于形成分页条
+        $this->assign('totals', $totalArr);
+        $this->import_resource(array('script' => 'inline_edit.js,jquery.ui/jquery.ui.js,jquery.ui/i18n/' . i18n_code() . '.js',
+            'style'=> 'jquery.ui/themes/ui-lightness/jquery.ui.css'));
+        $this->display('order.totalbyexpress.html');
+    }
+    
     /**
      *    查看
      *

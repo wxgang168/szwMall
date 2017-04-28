@@ -6,10 +6,14 @@ $(function(){
 });
 </script>
 <div id="rightTop">
-    <p>{$lang.order_manage}</p>
+    <p>{$lang.order}</p>
     <ul class="subnav">
         <li><span>{$lang.manage}</span></li>
+        <li><a class="btn1" href="index.php?app=order&amp;act=totalByseller">{$lang.order_totalByseller}</a></li>
+        <li><a class="btn1" href="index.php?app=order&amp;act=totalByexpress">{$lang.order_totalByexpress}</a></li>
+        
     </ul>
+   
 </div>
 <div class="mrightTop">
     <div class="fontl">
@@ -67,20 +71,20 @@ $(function(){
             </td>
             <td>
                 <a href="index.php?app=order&amp;act=view&amp;id={$order.order_id}">{$lang.view}</a>
-                <!--//调整费用-->
+                <!--//璋冩暣璐圭敤-->
                 <a href="index.php?app=order&amp;act=adjust_fee&amp;id={$order.order_id}"{if $order.status neq ORDER_PENDING and $order.status neq ORDER_SUBMITTED} style="display:none"{/if}>{$lang.adjust_fee}</a>
-                <!--//收到货款-->
+                <!--//鏀跺埌璐ф-->
                 <a href="index.php?app=order&amp;act=received_pay&amp;id={$order.order_id}"{if $order.status neq ORDER_PENDING} style="display:none"{/if}>{$lang.received_pay}</a>
 
-                <!--//发货-->
+                <!--//鍙戣揣-->
                 <a href="index.php?app=order&amp;act=shipped&amp;id={$order.order_id}"{if $order.status neq ORDER_ACCEPTED} style="display:none"{/if}>{$lang.shipped_order}</a>
-                <!--//取消订单 不是取消和完成的订单就可以取消-->
+                <!--//鍙栨秷璁㈠崟 涓嶆槸鍙栨秷鍜屽畬鎴愮殑璁㈠崟灏卞彲浠ュ彇娑�-->
                 <a href="index.php?app=order&amp;act=cancel_order&amp;id={$order.order_id}"{if $order.status eq ORDER_CANCELED or $order.status eq ORDER_FINISHED} style="display:none"{/if}>{$lang.cancel_order}</a>
-                <!--//确认订单-->
+                <!--//纭璁㈠崟-->
                 <a href="index.php?app=order&amp;act=confirm_cod_order&amp;id={$order.order_id}"{if $order.status neq ORDER_SUBMITTED} style="display:none" {/if}>{$lang.confirm_cod_order}</a>
-                <!--//完成订单-->
+                <!--//瀹屾垚璁㈠崟-->
                 <a href="index.php?app=order&amp;act=finish_order&amp;id={$order.order_id}"{if $order.payment_code neq 'cod' or $order.status neq ORDER_SHIPPED} style="display:none"{/if} >{$lang.finish_order}</a>
-                <!--//修改单号-->
+                <!--//淇敼鍗曞彿-->
                 <a href="index.php?app=order&amp;act=shipped&amp;id={$order.order_id}"{if $order.status neq ORDER_SHIPPED} style="display:none" {/if}>{$lang.edit_invoice_no}</a>
                 
             </td>

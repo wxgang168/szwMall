@@ -85,5 +85,22 @@ return array(
     'express_amount'        => '快递费',
 	
     
+    'total_time'                => '统计时间',
+    'status_1_ordersum'          => '已完成订单数合计',
+    'status_1_orderfee'          => '已完成订单金额合计',
+    'status_0_ordersum'          => '未完成订单数合计',
+    'status_0_orderfee'			=> '未完成订单金额合计',
+    'ordersum'			=> '订单数总计',
+    'orderfee'           => '订单金额总计',
+    'shippingfee'        => '物流费用合计',
+    
+    'express_name'  => '物流公司名称',
+    'expressfee'        => '物流费用',
+    
+    
+    'order'           => '订单',
+    'order_totalByseller'  => '按店铺统计',
+    'order_totalByexpress'  => '按快递统计',
+    
 );
 ?>
